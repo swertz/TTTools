@@ -1,0 +1,38 @@
+### YIELDS ###
+
+'Yields_CAT_base_IDLL_IsoLL_jj':
+  for-yields: true
+  yields-title: "base, jj"
+  yields-table-order: 0
+
+'Yields_CAT_base_ZVeto_IDLL_IsoLL_jj':
+  for-yields: true
+  yields-title: "base, jj, Zveto"
+  yields-table-order: 0
+
+'Yields_CAT_base_ZVeto_IDLL_IsoLL_jj_Met':
+  for-yields: true
+  yields-title: "base, jj, Zveto+MET"
+  yields-table-order: 0
+
+'Yields_CAT_base_IDLL_IsoLL_jj_Met':
+  for-yields: true
+  yields-title: "base, jj, MET"
+  yields-table-order: 0
+
+'Yields_CAT_base_IDLL_IsoLL_bb_LL':
+  for-yields: true
+  yields-title: "base, bb(LL)"
+  yields-table-order: 1
+
+'Yields_CAT_base_ZVeto_IDLL_IsoLL_bb_LL':
+  for-yields: true
+  yields-title: "base, bb(LL), ZVeto"
+
+'Yields_CAT_base_ZVeto_IDLL_IsoLL_bb_LL_Met':
+  for-yields: true
+  yields-title: "base, bb(LL), ZVeto+MET"
+
+'Yields_CAT_base_IDLL_IsoLL_bb_LL_Met':
+  for-yields: true
+  yields-title: "base, bb(LL), MET"
