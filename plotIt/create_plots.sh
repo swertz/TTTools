@@ -30,7 +30,7 @@ for flavor in MuMu ElEl MuEl ElMu; do
 
     cp TT_plots_base.yml TT_plots_$flavor.yml
     sed "s/base/$flavor/g" -i TT_plots_$flavor.yml
-    ../../plotIt -y TT_config_${flavor}.yml -o "$BASE_DIR/$OUTPUT_FOLDER/$flavor"
+    ../../plotIt/plotIt -y TT_config_${flavor}.yml -o "$BASE_DIR/$OUTPUT_FOLDER/$flavor"
 done
 
 for flavor in MuMu ElEl; do
@@ -38,7 +38,7 @@ for flavor in MuMu ElEl; do
 
     cp TT_plots_base.yml TT_plots_$flavor.yml
     sed "s/base/${flavor}_ZVeto/g" -i TT_plots_$flavor.yml
-    ../../plotIt -y TT_config_${flavor}.yml -o "$BASE_DIR/$OUTPUT_FOLDER/${flavor}_ZVeto"
+    ../../plotIt/plotIt -y TT_config_${flavor}.yml -o "$BASE_DIR/$OUTPUT_FOLDER/${flavor}_ZVeto"
 done
 
 echo ""
