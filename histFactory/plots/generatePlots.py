@@ -33,15 +33,15 @@ categoryPlots = {
             "plots": basePlots.ll + basePlots.lljj,
             },
         
-        # ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and one b-tag working point
-        "lljj_b_Categs": { 
-            "plots": basePlots.lljj_b,
-            },
+        ## ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and one b-tag working point
+        #"lljj_b_Categs": { 
+        #    "plots": basePlots.lljj_b,
+        #    },
         
-        # ask for 2 leptons & 2 jets & 1 b-jet; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and one b-tag working point
-        "llbjCategs": { 
-            "plots": basePlots.llbj,
-            },
+        ## ask for 2 leptons & 2 jets & 1 b-jet; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and one b-tag working point
+        #"llbjCategs": { 
+        #    "plots": basePlots.llbj,
+        #    },
         
         # ask for 2 leptons & 2 b-jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and two b-tag working point
         "llbbCategs": { 
@@ -60,7 +60,7 @@ for categ in categoryPlots.values():
 flavourCategPlots = { flav: copy.deepcopy(categoryPlots) for flav in myFlavours }
 
 for flav in flavourCategPlots.items():
-    generateCategoryStrings(flav[1], flav[0])
+    generateCategoryStrings(flav[1], flav[0], useMCHLT=True)
 
 #### Generate all the plots ####
 
@@ -95,7 +95,7 @@ for flav in flavourCategPlots.values():
                 # Plot weights
                 m_plot["weight"] = "event_pu_weight * event_weight"
                 if len(categ["weights"][subCateg_index]) > 0 and m_plot['scale-factors']:
-                    m_plot["weight"] += " * " + "( event_run < 200000 ? ({}) : 1.)".format(") * (".join(categ["weights"][subCateg_index]))
+                    m_plot["weight"] += " * " + "( {} )".format( ") * (".join(categ["weights"][subCateg_index]) )
 
                 plots.append(m_plot)
 

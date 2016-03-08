@@ -36,6 +36,9 @@ def get_muon_iso_sf_branch(iso, id):
 def get_muon_id_sf_branch(id):
     return 'muon_sf_id_%s' % (lepton_id_to_string(id))
 
+def get_electron_id_sf_branch(id):
+    return 'electron_sf_id_%s' % (lepton_id_to_string(id))
+
 def get_csvv2_sf_branch(wp):
     return 'jet_sf_csvv2_%s' % (btag_wp_to_string(wp))
 
@@ -59,7 +62,7 @@ def get_lepton_SF_for_dilepton(lepton_index, dilepton_index, id1, id2, iso1, iso
     lepton_index = '%s.lidxs.%s' % (dilepton_object, pair_field)
     lepton_object = 'tt_leptons[%s]' % lepton_index
 
-    lepton_id_sf = '(({0}.isEl) ? 1. : {1}[{0}.idx][0])'.format(lepton_object, get_muon_id_sf_branch(id1))
+    lepton_id_sf = '(({0}.isEl) ? {1}[{0}.idx][0] : {2}[{0}.idx][0])'.format(lepton_object, get_electron_id_sf_branch(id1), get_muon_id_sf_branch(id1))
     lepton_iso_sf = '(({0}.isEl) ? 1. : {1}[{0}.idx][0])'.format(lepton_object, get_muon_iso_sf_branch(iso1, id1))
 
     return '%s * %s' % (lepton_id_sf, lepton_iso_sf)

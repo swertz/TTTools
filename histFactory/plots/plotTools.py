@@ -22,10 +22,10 @@ def joinCuts(*cuts):
 
 #### The IDs/... we want to run on ####
 
-electronID = { TT.LepID.L: "L" }
+electronID = { TT.LepID.L: "M" }
 #electronID = { TT.LepID.L: "L", TT.LepID.M: "M" }
 #electronID = { TT.LepID.L: "L", TT.LepID.M: "M", TT.LepID.T: "T" }
-muonID = { TT.LepID.L: "L" }
+muonID = { TT.LepID.L: "T" }
 
 electronIso = { TT.LepIso.L: "L" }
 muonIso = { TT.LepIso.L: "L" }
@@ -43,7 +43,7 @@ keepOnlySymmetricWP = False
 
 #### UTILITY TO GENERATE ALL THE NEEDED CATEGORIES ####
 
-def generateCategoryStrings(categoryStringsDico, flavourChannel):
+def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=False, useMCHLT=False):
     if flavourChannel not in [ "MuMu", "ElMu", "MuEl", "ElEl" ]:
         raise Exception("Wrong flavour passed to string generator: %r." % flavourChannel)
 
@@ -52,8 +52,7 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel):
     lep1Isos = []
     lep2Isos = []
     catTitle = flavourChannel
-    catCut = flavourChannel.lower()
-    doZVeto = False
+    catCut = "tt_" + flavourChannel.lower()
 
     if flavourChannel == "ElEl":
         lep1IDs = electronID.keys()
@@ -107,16 +106,25 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel):
                     if flavourChannel == "MuMu" or flavourChannel == "MuEl":
                         muIDIso = TT.LepIDIso(id1, iso1)
                         elIDIso = TT.LepIDIso(id2, iso2)
-                    
-                    llStringsBase = {
-                            "#CAT_TITLE#": catTitle + "_" + lepLepIDIsoStr, 
-                            "#LEPLEP_IDISO#": TT.LepLepIDIso(id1, iso1, id2, iso2),
-                            "#LEPLEP_CAT_CUTS#": joinCuts(
+
+                    if useMCHLT:
+                        llBaseCatCuts = joinCuts(
                                 catCut + "_Category_" + lepLepIDIsoStr + "_cut", 
                                 catCut + "_Mll_" + lepLepIDIsoStr + "_cut", 
                                 catCut + "_DiLeptonTriggerMatch_" + lepLepIDIsoStr + "_cut", 
                                 catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut"
-                                ),
+                                )
+                    else:
+                        llBaseCatCuts = joinCuts(
+                                catCut + "_Category_" + lepLepIDIsoStr + "_cut", 
+                                catCut + "_Mll_" + lepLepIDIsoStr + "_cut", 
+                                catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut"
+                                )
+                    
+                    llStringsBase = {
+                            "#CAT_TITLE#": catTitle + "_" + lepLepIDIsoStr, 
+                            "#LEPLEP_IDISO#": TT.LepLepIDIso(id1, iso1, id2, iso2),
+                            "#LEPLEP_CAT_CUTS#": llBaseCatCuts,
                             "#MIN_LEP_IDISO#": TT.LepIDIso(min(id1, id2), min(iso1, iso2)),
                             "#EL_IDISO#": elIDIso,
                             "#MU_IDISO#": muIDIso,
@@ -130,10 +138,7 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel):
                         m_llStrings = copy.deepcopy(llStringsBase)
                         m_llStrings["#CAT_TITLE#"] = catTitle + "_ZVeto_" + lepLepIDIsoStr
                         m_llStrings["#LEPLEP_CAT_CUTS#"] = joinCuts(
-                                    catCut + "_Category_" + lepLepIDIsoStr + "_cut", 
-                                    catCut + "_Mll_" + lepLepIDIsoStr + "_cut", 
-                                    catCut + "_DiLeptonTriggerMatch_" + lepLepIDIsoStr + "_cut", 
-                                    catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut", 
+                                    llBaseCatCuts,
                                     catCut + "_MllZVeto_" + lepLepIDIsoStr + "_cut"
                                     )
                         llStrings.append(m_llStrings)
