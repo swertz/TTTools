@@ -94,3 +94,18 @@ def get_at_least_two_b_SF_for_dijet(dijet_index, b1_wp, b2_wp, id1, id2, iso1, i
     second_bjet_sf = get_at_least_two_b_SF_one_b_for_dijet(1, dijet_index, b1_wp, b2_wp, id1, id2, iso1, iso2)
 
     return "%s * %s" % (first_bjet_sf, second_bjet_sf)
+
+# trigger scale factors
+# hardcoded for now (only 2 bins -> easy)
+# the function called in defined in a separate c++ file
+
+def get_HLT_SF_for_dilepton(dilepton_index, id1, id2, iso1, iso2):
+    
+    dilepton_object = get_dilepton_object(dilepton_index, id1, id2, iso1, iso2)
+
+    lepton_index = '%s.lidxs' % dilepton_object
+    lepton_object_first = 'tt_leptons[%s.first]' % lepton_index
+    lepton_object_second = 'tt_leptons[%s.second]' % lepton_index
+
+    return "get_HLT_SF_for_dilepton( {0}.isElEl, {0}.isMuEl, {0}.isElMu, {0}.isMuMu, {1}.p4.Eta(), {2}.p4.Eta() )".format(dilepton_object, lepton_object_first, lepton_object_second)
+

@@ -22,13 +22,13 @@ def joinCuts(*cuts):
 
 #### The IDs/... we want to run on ####
 
-electronID = { TT.LepID.L: "M" }
+electronID = { TT.LepID.M: "M" }
 #electronID = { TT.LepID.L: "L", TT.LepID.M: "M" }
 #electronID = { TT.LepID.L: "L", TT.LepID.M: "M", TT.LepID.T: "T" }
-muonID = { TT.LepID.L: "T" }
+muonID = { TT.LepID.T: "T" }
 
 electronIso = { TT.LepIso.L: "L" }
-muonIso = { TT.LepIso.L: "L" }
+muonIso = { TT.LepIso.T: "T" }
 
 #myBWPs = { wp.first: wp.second for wp in TT.BWP.map }
 #myBWPs = { TT.BWP.L: "L", TT.BWP.M: "M" } 
@@ -92,7 +92,10 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=False, 
                     if keepOnlySymmetricWP and iso1 != iso2:
                         continue
 
-                    llSFs = [get_leptons_SF_for_dilepton(0, id1, id2, iso1, iso2)]
+                    llSFs = [
+                                get_leptons_SF_for_dilepton(0, id1, id2, iso1, iso2),
+                                get_HLT_SF_for_dilepton(0, id1, id2, iso1, iso2),
+                            ]
 
                     # ll categs: iterate over two leptons ID & isolation
 

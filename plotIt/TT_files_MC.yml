@@ -1,102 +1,142 @@
 ### Drell-Yan ###
 
-'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_histos.root':
+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
   type: mc
-  cross-section: 6025.2
-  generated-events: 4.52058e+11
-  legend: 'DY_M-50'
-  fill-color: '#CF00A0B0'
-  order: 2
+  group: DY
+  #legend: 'DY_M-50'
+  #fill-color: '#CF00A0B0'
+  order: 1
   yields-title: 'DY'
 
-'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_histos.root':
+'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
   type: mc
-  cross-section: 18610
-  generated-events: 9.0583e+11
-  legend: 'DY_M-10to50'
-  fill-color: '#00A0B0'
-  order: 1
+  group: DY
+  #legend: 'DY_M-10to50'
+  #fill-color: '#00A0B0'
+  order: 0
   yields-title: 'DY'
 
 ### TTbar ###
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_diLep_histos.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_diLep_histos.root':
   type: mc
-  cross-section: 831.76
-  generated-events: 96696300.0
-  legend: 'TT diLep.'
-  fill-color: '#EB6841'
-  order: 0
+  group: TT_diLep
+  #legend: 'TT diLep.'
+  #fill-color: '#EB6841'
+  order: 2
   yields-title: '$t\overline{t}$ diLep.'
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_semiLep_histos.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_semiLep_histos.root':
   type: mc
-  cross-section: 831.76
-  generated-events: 96696300.0
-  legend: 'TT semiLep.'
-  fill-color: '#CFEB6841'
+  group: TT_semiLep
+  #legend: 'TT semiLep.'
+  #fill-color: '#CFEB6841'
   order: -2
   yields-title: '$t\overline{t}$ semiLep.'
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_hadr_histos.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_hadr_histos.root':
   type: mc
-  cross-section: 831.76
-  generated-events: 96696300.0
-  legend: 'TT hadr.'
-  fill-color: '#BBEB6841'
-  order: -5
+  group: TT_hadr
+  #legend: 'TT hadr.'
+  #fill-color: '#BBEB6841'
+  order: -4
   yields-title: '$t\overline{t}$ hadr.'
 
 ### SingleTop ###
 
-'ST_tW_top_5f_inclusiveDecays_13TeV-powheg_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_histos.root':
+'ST_tW_top_5f_inclusiveDecays_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
   type: mc
-  cross-section: 35.6
-  generated-events: 995600.0
-  group: tW
+  group: ST
   #legend: 'Single Top tW'
   #fill-color: '#C02942'
   order: -1
   yields-title: 'tW'
 
-'ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_histos.root':
+'ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
   type: mc
-  cross-section: 35.6
-  generated-events: 988500.0
-  group: tW
+  group: ST
   #legend: 'Single Top tW'
   #fill-color: '#C02942'
   order: -1
   yields-title: 'tW'
 
-'ST_t-channel_4f_leptonDecays_13TeV-amcatnlo_MiniAODv2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_histos.root':
+'ST_t-channel_4f_leptonDecays_13TeV-amcatnlo_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
   type: mc
-  cross-section: 70.69
-  generated-events: 2016570000.0
-  legend: 'Single Top t-channel'
-  fill-color: '#CFC02942'
-  order: -3
+  group: ST
+  #legend: 'Single Top t-channel'
+  #fill-color: '#CFC02942'
+  order: -1
   yields-title: 't-chan.'
+
+'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: ST
+  order: -1
+  yields-title: 's-chan.'
 
 ### VV ###
 
-'VVTo2L2Nu_13TeV_amcatnloFXFX_madspin_pythia8_MiniAODv2_v2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_histos.root':
+'WWTo2L2Nu_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
   type: mc
-  cross-section: 12.05
-  generated-events: 1.83042e+08
-  legend: 'VV'
-  fill-color: '#ECD078'
-  order: -4
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'WWToLNuQQ_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'ZZTo2L2Nu_13TeV_powheg_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
+  yields-title: 'VV'
+
+'ZZTo4L_13TeV_powheg_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+  type: mc
+  group: VV
+  order: -3
   yields-title: 'VV'
 
 ### W+jets ###
 
-'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MiniAODv2_v2_v1.1.0+7415-6-g42bf8af_TTAnalysis_e595725_histos.root':
+'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
   type: mc
-  cross-section: 61526.7
-  generated-events: 3.74905e+12
-  legend: 'Wjets'
-  fill-color: '#6A4A3C'
+  group: Other
+  #legend: 'Wjets'
+  #fill-color: '#6A4A3C'
   order: -5
-  yields-title: 'Wjets'
+  yields-title: 'WJets'
 

@@ -102,3 +102,7 @@ for flav in flavourCategPlots.values():
                 print "Plot: {}\nVariable: {}\nCut: {}\nWeight: {}\nBinning: {}\n".format(m_plot["name"], m_plot["variable"], m_plot["plot_cut"], m_plot["weight"], m_plot["binning"])
 
 print "Generated {} plots.\n".format(len(plots))
+
+#### Include source file with the HLT SFs ####
+
+includes = ["HLT_SF.h"]
