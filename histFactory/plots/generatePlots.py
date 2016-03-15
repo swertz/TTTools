@@ -29,9 +29,9 @@ categoryPlots = {
         #    },
         
         # ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons(take loosest ones for jet minDRjl cut)
-        "lljjCategs": { 
-            "plots": basePlots.ll + basePlots.lljj,
-            },
+        #"lljjCategs": { 
+        #    "plots": basePlots.ll + basePlots.lljj,
+        #    },
         
         ## ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and one b-tag working point
         #"lljj_b_Categs": { 
@@ -45,8 +45,8 @@ categoryPlots = {
         
         # ask for 2 leptons & 2 b-jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and two b-tag working point
         "llbbCategs": { 
-            "plots": basePlots.ll + basePlots.lljj + basePlots.llbb,
-            #"plots": transferFunctions.matchedBTFs,
+            #"plots": basePlots.ll + basePlots.lljj + basePlots.llbb,
+            "plots": transferFunctions.matchedBTFs,
             },
     
     }

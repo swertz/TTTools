@@ -1,0 +1,37 @@
+'data':
+  legend: 'Data'
+
+'TT_diLep':
+  legend: 't#bar{t} di-lep.'
+  fill-color: '#EB6841'
+  legend-order: 6
+
+'TT_semiLep':
+  legend: 't#bar{t} semi-lep.'
+  fill-color: '#CFEB6841'
+  legend-order: 3
+
+'TT_hadr':
+  legend: 't#bar{t} hadr.'
+  fill-color: '#BBEB6841'
+  legend-order: 2
+
+'DY':
+  legend: 'Drell-Yan'
+  fill-color: '#00A0B0'
+  legend-order: 5
+
+'ST':
+  legend: 'Single Top & tW'
+  fill-color: '#C02942'
+  legend-order: 4 
+
+'VV':
+  legend: 'VV'
+  fill-color: '#ECD078'
+  legend-order: 1
+
+'Other':
+  legend: 'Other'
+  fill-color: '#774F38'
+  legend-order: 0 

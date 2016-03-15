@@ -5,20 +5,20 @@
   yields-title: "base, jj"
   yields-table-order: 0
 
-'Yields_CAT_base_ZVeto_ID??_Iso??_jj':
-  for-yields: true
-  yields-title: "base, jj, Zveto"
-  yields-table-order: 0
-
-'Yields_CAT_base_ZVeto_ID??_Iso??_jj_Met':
-  for-yields: true
-  yields-title: "base, jj, Zveto+MET"
-  yields-table-order: 0
-
-'Yields_CAT_base_ID??_Iso??_jj_Met':
-  for-yields: true
-  yields-title: "base, jj, MET"
-  yields-table-order: 0
+#'Yields_CAT_base_ZVeto_ID??_Iso??_jj':
+#  for-yields: true
+#  yields-title: "base, jj, Zveto"
+#  #yields-table-order: 0
+#
+#'Yields_CAT_base_ZVeto_ID??_Iso??_jj_Met':
+#  for-yields: true
+#  yields-title: "base, jj, Zveto+MET"
+#  #yields-table-order: 0
+#
+#'Yields_CAT_base_ID??_Iso??_jj_Met':
+#  for-yields: true
+#  yields-title: "base, jj, MET"
+#  #yields-table-order: 0
 
 'Yields_CAT_base_ID??_Iso??_bb_LL':
   for-yields: true
@@ -28,11 +28,13 @@
 'Yields_CAT_base_ZVeto_ID??_Iso??_bb_LL':
   for-yields: true
   yields-title: "base, bb(LL), ZVeto"
+  yields-table-order: 2
 
 'Yields_CAT_base_ZVeto_ID??_Iso??_bb_LL_Met':
   for-yields: true
   yields-title: "base, bb(LL), ZVeto+MET"
+  yields-table-order: 3
 
-'Yields_CAT_base_ID??_Iso??_bb_LL_Met':
-  for-yields: true
-  yields-title: "base, bb(LL), MET"
+#'Yields_CAT_base_ID??_Iso??_bb_LL_Met':
+#  for-yields: true
+#  yields-title: "base, bb(LL), MET"

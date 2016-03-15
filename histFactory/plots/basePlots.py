@@ -18,18 +18,18 @@ ll = [
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (40, 0, 40)
         },
-        {
-            'name': 'nPU_CAT_#CAT_TITLE#',
-            'variable': 'event_npu',
-            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
-            'binning': (40, 0, 40)
-        },
-        {
-            'name': 'HT_CAT_#CAT_TITLE#',
-            'variable': 'event_ht',
-            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
-            'binning': (100, 0, 1200)
-        },
+        #{
+        #    'name': 'nPU_CAT_#CAT_TITLE#',
+        #    'variable': 'event_npu',
+        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+        #    'binning': (40, 0, 40)
+        #},
+        #{
+        #    'name': 'HT_CAT_#CAT_TITLE#',
+        #    'variable': 'event_ht',
+        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+        #    'binning': (100, 0, 1200)
+        #},
 
         # Yields
         {
@@ -89,7 +89,7 @@ ll = [
             'name': 'nMuons_CAT_#CAT_TITLE#',
             'variable': 'Length$(tt_muons_IDIso[#MU_IDISO#])',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
-            'binning': (50, 0, 0.2),
+            'binning': (5, 0, 5),
             'scale-factors': False
         },
 
@@ -867,24 +867,24 @@ llbb = [
             'binning': (25, -5, 5)
         },
         ## MTT Resolution
-        #{ 
-        #    'name': 'llbbMet_TT_M_minus_Mgen_beforeFSR_CAT_#CAT_TITLE#',
-        #    'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()',
-        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-        #    'binning': (100, -1000, 1000)
-        #},
-        #{ 
-        #    'name': 'llbbMet_TT_M_resolution_beforeFSR_CAT_#CAT_TITLE#',
-        #    'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()) / tt_gen_ttbar_beforeFSR_p4.M() ' ,
-        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-        #    'binning': (200, -10, 10)
-        #},
-        #{ 
-        #    'name': 'llbbMet_TT_M_minus_Mgen_CAT_#CAT_TITLE#',
-        #    'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_p4.M()',
-        #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-        #    'binning': (100, -1000, 1000)
-        #},
+        { 
+            'name': 'llbbMet_TT_M_minus_Mgen_beforeFSR_CAT_#CAT_TITLE#',
+            'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
+            'binning': (100, -1000, 1000)
+        },
+        { 
+            'name': 'llbbMet_TT_M_resolution_beforeFSR_CAT_#CAT_TITLE#',
+            'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()) / tt_gen_ttbar_beforeFSR_p4.M() ' ,
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
+            'binning': (200, -10, 10)
+        },
+        { 
+            'name': 'llbbMet_TT_M_minus_Mgen_CAT_#CAT_TITLE#',
+            'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_p4.M()',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
+            'binning': (100, -1000, 1000)
+        },
         { 
             'name': 'llbbMet_TT_M_resolution_CAT_#CAT_TITLE#',
             'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_p4.M()) / tt_gen_ttbar_p4.M() ' ,

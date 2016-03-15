@@ -1,6 +1,6 @@
-## EVENT ###
+### EVENT ###
 
-'nPV_CAT_base_ID??_IsoLL*':
+'nPV_CAT_base_ID??_Iso*':
   x-axis: "nPV"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -8,25 +8,25 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'nPU_CAT_base_ID??_IsoLL*':
-  x-axis: "nPV"
-  y-axis: "Evt"
-  y-axis-format: "%1% / %2$.0f"
-  log-y: both
-  save-extensions: ["png"]
-  show-ratio: true
-
-'HT_CAT_base_ID??_IsoLL*':
-  x-axis: "nPV"
-  y-axis: "Evt"
-  y-axis-format: "%1% / %2$.0f"
-  log-y: both
-  save-extensions: ["png"]
-  show-ratio: true
+#'nPU_CAT_base_ID??_Iso*':
+#  x-axis: "nPV"
+#  y-axis: "Evt"
+#  y-axis-format: "%1% / %2$.0f"
+#  log-y: both
+#  save-extensions: ["png"]
+#  show-ratio: true
+#
+#'HT_CAT_base_ID??_Iso*':
+#  x-axis: "nPV"
+#  y-axis: "Evt"
+#  y-axis-format: "%1% / %2$.0f"
+#  log-y: both
+#  save-extensions: ["png"]
+#  show-ratio: true
 
 ### nLEPTONS ###
 
-'nElectrons_CAT_base_ID??_IsoLL*':
+'nElectrons_CAT_base_ID??_Iso*':
   x-axis: "Electrons"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -36,7 +36,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'nMuons_CAT_base_ID??_IsoLL*':
+'nMuons_CAT_base_ID??_Iso*':
   x-axis: "Muons"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -48,7 +48,7 @@
 
 ### LEPTON 1 ###
 
-'lep1_pt_CAT_base_ID??_IsoLL*':
+'lep1_pt_CAT_base_ID??_Iso*':
   x-axis: "Pt (lep1) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -59,7 +59,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep1_eta_CAT_base_ID??_IsoLL*':
+'lep1_eta_CAT_base_ID??_Iso*':
   x-axis: "Eta (lep1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -70,7 +70,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'lep1_phi_CAT_base_ID??_IsoLL*':
+#'lep1_phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi (lep1)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -81,7 +81,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'lep1_iso_CAT_base_ID??_IsoLL*':
+'lep1_iso_CAT_base_ID??_Iso*':
   x-axis: "Isolation (lep1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -92,7 +92,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep1_dz_CAT_base_ID??_IsoLL*':
+'lep1_dz_CAT_base_ID??_Iso*':
   x-axis: "dZ (lep1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -102,7 +102,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep1_dxy_CAT_base_ID??_IsoLL*':
+'lep1_dxy_CAT_base_ID??_Iso*':
   x-axis: "dXY (lep1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -112,7 +112,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep1_dca_CAT_base_ID??_IsoLL*':
+'lep1_dca_CAT_base_ID??_Iso*':
   x-axis: "dca (lep1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -120,7 +120,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep1_SF_CAT_base_ID??_IsoLL*':
+'lep1_SF_CAT_base_ID??_Iso*':
   x-axis: "Scale factor (lep1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -133,7 +133,7 @@
 
 ### LEPTON 2 ###
 
-'lep2_pt_CAT_base_ID??_IsoLL*':
+'lep2_pt_CAT_base_ID??_Iso*':
   x-axis: "Pt (lep2) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -144,7 +144,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep2_eta_CAT_base_ID??_IsoLL*':
+'lep2_eta_CAT_base_ID??_Iso*':
   x-axis: "Eta (lep2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -155,7 +155,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'lep2_phi_CAT_base_ID??_IsoLL*':
+#'lep2_phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi (lep2)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -166,7 +166,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'lep2_iso_CAT_base_ID??_IsoLL*':
+'lep2_iso_CAT_base_ID??_Iso*':
   x-axis: "Isolation (lep2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -177,7 +177,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep2_dz_CAT_base_ID??_IsoLL*':
+'lep2_dz_CAT_base_ID??_Iso*':
   x-axis: "dZ (lep2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -187,7 +187,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep2_dxy_CAT_base_ID??_IsoLL*':
+'lep2_dxy_CAT_base_ID??_Iso*':
   x-axis: "dXY (lep2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -197,7 +197,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep2_dca_CAT_base_ID??_IsoLL*':
+'lep2_dca_CAT_base_ID??_Iso*':
   x-axis: "dca (lep1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -205,7 +205,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lep2_SF_CAT_base_ID??_IsoLL*':
+'lep2_SF_CAT_base_ID??_Iso*':
   x-axis: "Scale factor (lep2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -219,7 +219,7 @@
 
 ### DILEPTON ###
 
-'ll_M_CAT_base*ID??_IsoLL*':
+'ll_M_CAT_base_ID??_Iso*':
   x-axis: "M(ll) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -230,7 +230,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'ll_M_Zpeak_CAT_base_ID??_IsoLL*':
+'ll_M_Zpeak_CAT_base_ID??_Iso*':
   x-axis: "M(ll) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -241,7 +241,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'ll_Pt_CAT_base_ID??_IsoLL*':
+'ll_Pt_CAT_base_ID??_Iso*':
   x-axis: "Pt(ll) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -252,7 +252,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'ll_Eta_CAT_base_ID??_IsoLL*':
+'ll_Eta_CAT_base_ID??_Iso*':
   x-axis: "Eta(ll)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -263,7 +263,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'ll_Phi_CAT_base_ID??_IsoLL*':
+#'ll_Phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi(ll)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -274,7 +274,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'ll_DR_CAT_base_ID??_IsoLL*':
+'ll_DR_CAT_base_ID??_Iso*':
   x-axis: "DR(l,l)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -285,7 +285,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'ll_DPhi_CAT_base_ID??_IsoLL*':
+#'ll_DPhi_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(l,l)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -298,7 +298,7 @@
 
 ### (B-)JET 1 ###
 
-'*jet1_pt_CAT_base_ID??_IsoLL*':
+'*jet1_pt_CAT_base_ID??_Iso*':
   x-axis: "Pt (jet1) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -309,7 +309,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'*jet1_eta_CAT_base_ID??_IsoLL*':
+'*jet1_eta_CAT_base_ID??_Iso*':
   x-axis: "Eta (jet1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -320,7 +320,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'*jet1_phi_CAT_base_ID??_IsoLL*':
+#'*jet1_phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi (jet1)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -331,7 +331,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'*jet1_CSVv2_CAT_base_ID??_IsoLL*':
+'*jet1_CSVv2_CAT_base_ID??_Iso*':
   x-axis: "CSVv2 (jet1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -342,7 +342,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'*jet1_minDRjl_CAT_base_ID??_IsoLL*':
+'*jet1_minDRjl_CAT_base_ID??_Iso*':
   x-axis: "minDRjl (jet1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -353,7 +353,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'bjet1_SF_CAT_base_ID??_IsoLL*':
+'bjet1_SF_CAT_base_ID??_Iso*':
   x-axis: "Scale factor (b-jet1)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -367,7 +367,7 @@
 
 ### (B-)JET 2 ###
 
-'*jet2_pt_CAT_base_ID??_IsoLL*':
+'*jet2_pt_CAT_base_ID??_Iso*':
   x-axis: "Pt (jet2) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -378,7 +378,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'*jet2_eta_CAT_base_ID??_IsoLL*':
+'*jet2_eta_CAT_base_ID??_Iso*':
   x-axis: "Eta (jet2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -389,7 +389,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'*jet2_phi_CAT_base_ID??_IsoLL*':
+#'*jet2_phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi (jet2)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -400,7 +400,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'*jet2_CSVv2_CAT_base_ID??_IsoLL*':
+'*jet2_CSVv2_CAT_base_ID??_Iso*':
   x-axis: "CSVv2 (jet2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -411,7 +411,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'*jet2_minDRjl_CAT_base_ID??_IsoLL*':
+'*jet2_minDRjl_CAT_base_ID??_Iso*':
   x-axis: "minDRjl (jet2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -422,7 +422,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'bjet2_SF_CAT_base_ID??_IsoLL*':
+'bjet2_SF_CAT_base_ID??_Iso*':
   x-axis: "Scale factor (b-jet2)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -436,7 +436,7 @@
 
 ### DIJETS ###
 
-'jj_M_CAT_base_ID??_IsoLL_*':
+'jj_M_CAT_base_ID??_Iso*':
   x-axis: "M(jj) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -447,7 +447,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'jj_Pt_CAT_base_ID??_IsoLL_*':
+'jj_Pt_CAT_base_ID??_Iso*':
   x-axis: "Pt(jj) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -458,7 +458,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'jj_Eta_CAT_base_ID??_IsoLL_*':
+'jj_Eta_CAT_base_ID??_Iso*':
   x-axis: "Eta(jj)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -469,7 +469,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'jj_Phi_CAT_base_ID??_IsoLL_*':
+#'jj_Phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi(jj) (GeV)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -480,7 +480,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'jj_DR_CAT_base_ID??_IsoLL_*':
+'jj_DR_CAT_base_ID??_Iso*':
   x-axis: "DR(j,j)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -491,7 +491,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'jj_DPhi_CAT_base_ID??_IsoLL_*':
+#'jj_DPhi_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(j,j)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -504,7 +504,7 @@
 
 ## lljj objects ##
 
-'lljj_M_CAT_base_ID??_IsoLL_*':
+'lljj_M_CAT_base_ID??_Iso*':
   x-axis: "M(lljj) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -515,7 +515,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lljj_Pt_CAT_base_ID??_IsoLL_*':
+'lljj_Pt_CAT_base_ID??_Iso*':
   x-axis: "Pt(lljj) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -526,7 +526,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lljj_Eta_CAT_base_ID??_IsoLL_*':
+'lljj_Eta_CAT_base_ID??_Iso*':
   x-axis: "Eta(lljj)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -537,7 +537,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'lljj_Phi_CAT_base_ID??_IsoLL_*':
+#'lljj_Phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi(lljj)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -548,7 +548,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'lljj_DR_ll_jj_CAT_base_ID??_IsoLL_*':
+'lljj_DR_ll_jj_CAT_base_ID??_Iso*':
   x-axis: "DR(ll,jj)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -559,7 +559,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'lljj_DPhi_ll_jj_CAT_base_ID??_IsoLL_*':
+#'lljj_DPhi_ll_jj_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(ll,jj)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -570,7 +570,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'lljj_minDRjl_CAT_base_ID??_IsoLL_*':
+'lljj_minDRjl_CAT_base_ID??_Iso*':
   x-axis: "min DR(j,l)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -581,7 +581,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lljj_maxDRjl_CAT_base_ID??_IsoLL_*':
+'lljj_maxDRjl_CAT_base_ID??_Iso*':
   x-axis: "max DR(j,l)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -592,7 +592,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'lljj_minDPhijl_CAT_base_ID??_IsoLL_*':
+#'lljj_minDPhijl_CAT_base_ID??_Iso*':
 #  x-axis: "min DPhi(j,l)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -603,7 +603,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'lljj_maxDPhijl_CAT_base_ID??_IsoLL_*':
+#'lljj_maxDPhijl_CAT_base_ID??_Iso*':
 #  x-axis: "max DPhi(j,l)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -616,7 +616,7 @@
 
 ## lljjMet objects ##
 
-'lljjMet_Mt_CAT_base_ID??_IsoLL_*':
+'lljjMet_Mt_CAT_base_ID??_Iso*':
   x-axis: "Mt(lljjMet) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -627,7 +627,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'lljjMet_Pt_CAT_base_ID??_IsoLL_*':
+'lljjMet_Pt_CAT_base_ID??_Iso*':
   x-axis: "Pt(lljjMet) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -638,7 +638,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'lljjMet_Phi_CAT_base_ID??_IsoLL_*':
+#'lljjMet_Phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi(lljjMet)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -649,7 +649,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'lljjMet_DPhi_ll_Met_CAT_base_ID??_IsoLL_*':
+#'lljjMet_DPhi_ll_Met_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(ll,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -660,7 +660,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'lljjMet_DPhi_jj_Met_CAT_base_ID??_IsoLL_*':
+#'lljjMet_DPhi_jj_Met_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(jj,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -671,7 +671,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'lljjMet_minDPhi_l_Met_CAT_base_ID??_IsoLL_*':
+#'lljjMet_minDPhi_l_Met_CAT_base_ID??_Iso*':
 #  x-axis: "minDPhi(l,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -682,7 +682,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'lljjMet_maxDPhi_l_MetCAT_base_ID??_IsoLL_*':
+#'lljjMet_maxDPhi_l_MetCAT_base_ID??_Iso*':
 #  x-axis: "maxDPhi(l,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -693,7 +693,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'lljjMet_minDPhi_j_Met_CAT_base_ID??_IsoLL_*':
+#'lljjMet_minDPhi_j_Met_CAT_base_ID??_Iso*':
 #  x-axis: "minDPhi(j,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -704,7 +704,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'lljjMet_maxDPhi_j_Met_CAT_base_ID??_IsoLL_*':
+#'lljjMet_maxDPhi_j_Met_CAT_base_ID??_Iso*':
 #  x-axis: "maxDPhi(j,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -717,7 +717,7 @@
 
 ### DI-B-JETS ###
 
-'bb_M_CAT_base_ID??_IsoLL_*':
+'bb_M_CAT_base_ID??_Iso*':
   x-axis: "M(bb) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -728,7 +728,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'bb_Pt_CAT_base_ID??_IsoLL_*':
+'bb_Pt_CAT_base_ID??_Iso*':
   x-axis: "Pt(bb) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -739,7 +739,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'bb_Eta_CAT_base_ID??_IsoLL_*':
+'bb_Eta_CAT_base_ID??_Iso*':
   x-axis: "Eta(bb)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -750,7 +750,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'bb_Phi_CAT_base_ID??_IsoLL_*':
+#'bb_Phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi(bb)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -761,7 +761,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'bb_DR_CAT_base_ID??_IsoLL_*':
+'bb_DR_CAT_base_ID??_Iso*':
   x-axis: "DR(b,b)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -772,7 +772,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'bb_DPhi_CAT_base_ID??_IsoLL_*':
+#'bb_DPhi_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(b,b)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -785,7 +785,7 @@
 
 ## MET ##
 
-'PFMET_MET_CAT_base_ID??_IsoLL*':
+'PFMET_MET_CAT_base_ID??_Iso*':
   x-axis: "PFMET (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -796,7 +796,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'noHFMET_MET_CAT_base_ID??_IsoLL*':
+#'noHFMET_MET_CAT_base_ID??_Iso*':
 #  x-axis: "noHFMET (GeV)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f GeV"
@@ -809,18 +809,18 @@
 
 ## n(B)Jets ##
 
-#'nJets_CAT_base_ID??_IsoLL*':
-#  x-axis: "nJet"
-#  y-axis: "Evt"
-#  y-axis-format: "%1% / %2$.0f"
-#  normalized: false
-#  x-axis-range: [0, 10]
-#  binning-x: 1
-#  log-y: both
-#  save-extensions: ["png"]
-#  show-ratio: true
+'nJets_CAT_base_ID??_Iso*':
+  x-axis: "nJet"
+  y-axis: "Evt"
+  y-axis-format: "%1% / %2$.0f"
+  normalized: false
+  x-axis-range: [0, 10]
+  binning-x: 1
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
 #
-#'nBJets_L_CAT_base_ID??_IsoLL*':
+#'nBJets_L_CAT_base_ID??_Iso*':
 #  x-axis: "nLooseBJet"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -830,7 +830,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-#'nBJets_M_CAT_base_ID??_IsoLL_*':
+#'nBJets_M_CAT_base_ID??_Iso*':
 #  x-axis: "nMediumBJet"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -841,7 +841,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-#'nBJets_T_CAT_base_ID??_IsoLL_*':
+#'nBJets_T_CAT_base_ID??_Iso*':
 #  x-axis: "nTighBJet"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -854,7 +854,7 @@
 
 ## llbb objects ##
 
-'llbb_M_CAT_base_ID??_IsoLL_*':
+'llbb_M_CAT_base_ID??_Iso*':
   x-axis: "M(llbb) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -865,7 +865,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbb_Pt_CAT_base_ID??_IsoLL_*':
+'llbb_Pt_CAT_base_ID??_Iso*':
   x-axis: "Pt(llbb) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -876,7 +876,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbb_Eta_CAT_base_ID??_IsoLL_*':
+'llbb_Eta_CAT_base_ID??_Iso*':
   x-axis: "Eta(llbb)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -887,7 +887,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'llbb_Phi_CAT_base_ID??_IsoLL_*':
+#'llbb_Phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi(llbb)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -898,7 +898,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'llbb_DR_ll_bb_CAT_base_ID??_IsoLL_*':
+'llbb_DR_ll_bb_CAT_base_ID??_Iso*':
   x-axis: "DR(ll,bb)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -909,7 +909,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'llbb_DPhi_ll_bb_CAT_base_ID??_IsoLL_*':
+#'llbb_DPhi_ll_bb_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(ll,bb)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -920,7 +920,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'llbb_minDRjl_CAT_base_ID??_IsoLL_*':
+'llbb_minDRjl_CAT_base_ID??_Iso*':
   x-axis: "min DR(b,l)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -931,7 +931,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbb_maxDRjl_CAT_base_ID??_IsoLL_*':
+'llbb_maxDRjl_CAT_base_ID??_Iso*':
   x-axis: "max DR(b,l)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f"
@@ -942,7 +942,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'llbb_minDPhijl_CAT_base_ID??_IsoLL_*':
+#'llbb_minDPhijl_CAT_base_ID??_Iso*':
 #  x-axis: "min DPhi(b,l)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -953,7 +953,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'llbb_maxDPhijl_CAT_base_ID??_IsoLL_*':
+#'llbb_maxDPhijl_CAT_base_ID??_Iso*':
 #  x-axis: "max DPhi(b,l)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -966,7 +966,7 @@
 
 ## llbbMet objects ##
 
-'llbbMet_Mt_CAT_base_ID??_IsoLL_*':
+'llbbMet_Mt_CAT_base_ID??_Iso*':
   x-axis: "Mt(llbbMet) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -977,7 +977,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbbMet_Pt_CAT_base_ID??_IsoLL_*':
+'llbbMet_Pt_CAT_base_ID??_Iso*':
   x-axis: "Pt(llbbMet) (GeV)"
   y-axis: "Evt"
   y-axis-format: "%1% / %2$.0f GeV"
@@ -988,7 +988,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'llbbMet_Phi_CAT_base_ID??_IsoLL_*':
+#'llbbMet_Phi_CAT_base_ID??_Iso*':
 #  x-axis: "Phi(llbbMet)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -999,7 +999,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'llbbMet_DPhi_ll_Met_CAT_base_ID??_IsoLL_*':
+#'llbbMet_DPhi_ll_Met_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(ll,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -1010,7 +1010,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'llbbMet_DPhi_bb_Met_CAT_base_ID??_IsoLL_*':
+#'llbbMet_DPhi_bb_Met_CAT_base_ID??_Iso*':
 #  x-axis: "DPhi(bb,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -1021,7 +1021,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'llbbMet_minDPhi_l_Met_CAT_base_ID??_IsoLL_*':
+#'llbbMet_minDPhi_l_Met_CAT_base_ID??_Iso*':
 #  x-axis: "minDPhi(l,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -1032,7 +1032,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'llbbMet_maxDPhi_lMet_CAT_base_ID??_IsoLL_*':
+#'llbbMet_maxDPhi_lMet_CAT_base_ID??_Iso*':
 #  x-axis: "maxDPhi(l,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -1043,7 +1043,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'llbbMet_minDPhi_j_Met_CAT_base_ID??_IsoLL_*':
+#'llbbMet_minDPhi_j_Met_CAT_base_ID??_Iso*':
 #  x-axis: "minDPhi(b,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -1054,7 +1054,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 #
-#'llbbMet_maxDPhi_j_Met_CAT_base_ID??_IsoLL_*':
+#'llbbMet_maxDPhi_j_Met_CAT_base_ID??_Iso*':
 #  x-axis: "maxDPhi(b,Met)"
 #  y-axis: "Evt"
 #  y-axis-format: "%1% / %2$.0f"
@@ -1065,7 +1065,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'llbbMet_TT_M_CAT_base_ID??_IsoLL_*':
+'llbbMet_TT_M_CAT_base_ID??_Iso*':
   x-axis: "M_{t#bar{t}}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
@@ -1074,7 +1074,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbbMet_TT_Pt_CAT_base_ID??_IsoLL_*':
+'llbbMet_TT_Pt_CAT_base_ID??_Iso*':
   x-axis: "P_{T, t#bar{t}}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
@@ -1083,7 +1083,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbbMet_TT_Eta_CAT_base_ID??_IsoLL_*':
+'llbbMet_TT_Eta_CAT_base_ID??_Iso*':
   x-axis: "#eta_{t#bar{t}}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
@@ -1092,7 +1092,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'llbbMet_DPhi_top1_top2t_CAT_base_ID??_IsoLL_*':
+#'llbbMet_DPhi_top1_top2t_CAT_base_ID??_Iso*':
 #  x-axis: "#Delta #varphi_{t, #bar{t}}"
 #  y-axis: "Events"
 #  y-axis-format: "%1% / %2$.1f"
@@ -1101,7 +1101,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'llbbMet_DR_top1_top2_CAT_base_ID??_IsoLL_*':
+'llbbMet_DR_top1_top2_CAT_base_ID??_Iso*':
   x-axis: "#Delta R_{t, #bar{t}}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
@@ -1110,7 +1110,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-#'llbbMet_DEta_top1_top2_CAT_base_ID??_IsoLL_*':
+#'llbbMet_DEta_top1_top2_CAT_base_ID??_Iso*':
 #  x-axis: "#Delta #eta_{t, #bar{t}}"
 #  y-axis: "Events"
 #  y-axis-format: "%1% / %2$.1f"
@@ -1119,7 +1119,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-'llbbMet_T1_Pt_CAT_base_ID??_IsoLL_*':
+'llbbMet_T1_Pt_CAT_base_ID??_Iso*':
   x-axis: "P_{T, top 1}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
@@ -1128,7 +1128,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbbMet_T1_Eta_CAT_base_ID??_IsoLL_*':
+'llbbMet_T1_Eta_CAT_base_ID??_Iso*':
   x-axis: "#eta_{top 1}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
@@ -1137,7 +1137,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbbMet_T2_Pt_CAT_base_ID??_IsoLL_*':
+'llbbMet_T2_Pt_CAT_base_ID??_Iso*':
   x-axis: "P_{T, top 2}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
@@ -1146,7 +1146,7 @@
   save-extensions: ["png"]
   show-ratio: true
 
-'llbbMet_T2_Eta_CAT_base_ID??_IsoLL_*':
+'llbbMet_T2_Eta_CAT_base_ID??_Iso*':
   x-axis: "#eta_{top 2}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"

@@ -1,7 +1,7 @@
 configuration:
   width: 800
   height: 800
-  luminosity-label: '%lumi% fb^{-1} (13 TeV)'
+  luminosity-label: '%1$.2f fb^{-1} (13 TeV)'
   experiment: "CMS"
   extra-label: "Preliminary"
   root: "results/latest"
