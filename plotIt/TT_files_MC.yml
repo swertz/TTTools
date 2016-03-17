@@ -18,7 +18,7 @@
 
 ### TTbar ###
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_diLep_histos.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_diLep.root':
   type: mc
   group: TT_diLep
   #legend: 'TT diLep.'
@@ -26,7 +26,7 @@
   order: 2
   yields-title: '$t\overline{t}$ diLep.'
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_semiLep_histos.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_semiLep.root':
   type: mc
   group: TT_semiLep
   #legend: 'TT semiLep.'
@@ -34,7 +34,7 @@
   order: -2
   yields-title: '$t\overline{t}$ semiLep.'
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_hadr_histos.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_hadr.root':
   type: mc
   group: TT_hadr
   #legend: 'TT hadr.'

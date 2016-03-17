@@ -22,13 +22,13 @@ def joinCuts(*cuts):
 
 #### The IDs/... we want to run on ####
 
-electronID = { TT.LepID.L: "L" }
+electronID = { TT.LepID.M: "M" }
 #electronID = { TT.LepID.L: "L", TT.LepID.M: "M" }
 #electronID = { TT.LepID.L: "L", TT.LepID.M: "M", TT.LepID.T: "T" }
-muonID = { TT.LepID.L: "L" }
+muonID = { TT.LepID.T: "T" }
 
 electronIso = { TT.LepIso.L: "L" }
-muonIso = { TT.LepIso.L: "L" }
+muonIso = { TT.LepIso.T: "T" }
 
 #myBWPs = { wp.first: wp.second for wp in TT.BWP.map }
 #myBWPs = { TT.BWP.L: "L", TT.BWP.M: "M" } 

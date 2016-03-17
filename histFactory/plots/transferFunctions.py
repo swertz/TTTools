@@ -102,7 +102,7 @@ matchedBTFs = [
         # DeltaR matching monitoring
         {
             'name': 'DR_b_CAT_#CAT_TITLE#',
-            'variable': 'tt_gen_b_beforeFSR_deltaR[#MIN_LEP_IDISO#][ tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] ]'
+            'variable': 'tt_gen_b_beforeFSR_deltaR[#MIN_LEP_IDISO#][ tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] ]',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#',
                 'tt_gen_b >= 0', 'tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] >= 0', '( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ])',
                 ),
@@ -110,7 +110,7 @@ matchedBTFs = [
         },
         {
             'name': 'DR_bbar_CAT_#CAT_TITLE#',
-            'variable': 'tt_gen_bbar_beforeFSR_deltaR[#MIN_LEP_IDISO#][ tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] ]'
+            'variable': 'tt_gen_bbar_beforeFSR_deltaR[#MIN_LEP_IDISO#][ tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] ]',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#',
                 'tt_gen_bbar >= 0', 'tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] >= 0', '( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ])',
                 ),
@@ -121,25 +121,25 @@ matchedBTFs = [
         {
             'name': 'Matched_b_CSVv2_CAT_#CAT_TITLE#',
             'variable': '( tt_gen_b >= 0 && tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ]) ) ? 1 : 0',
-            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#')
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': '(2, 0, 2)',
         },
         {
             'name': 'Matched_bbar_CSVv2_CAT_#CAT_TITLE#',
             'variable': '( tt_gen_bbar >= 0 && tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ]) ) ? 1 : 0',
-            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#')
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': '(2, 0, 2)',
         },
         {
             'name': 'Matched_b_Pt_CAT_#CAT_TITLE#',
             'variable': '( tt_gen_b >= 0 && tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ]) ) ? 1 : 0',
-            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#') # JET_CAT_CUTS uses CSVv2-ordered b-jet pairs, but it only requires that there is a b-jet pair present, which is true or false independently of how they're ordered
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'), # JET_CAT_CUTS uses CSVv2-ordered b-jet pairs, but it only requires that there is a b-jet pair present, which is true or false independently of how they're ordered
             'binning': '(2, 0, 2)',
         },
         {
             'name': 'Matched_bbar_Pt_CAT_#CAT_TITLE#',
             'variable': '( tt_gen_bbar >= 0 && tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ]) ) ? 1 : 0',
-            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#')
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': '(2, 0, 2)',
         },
     ]

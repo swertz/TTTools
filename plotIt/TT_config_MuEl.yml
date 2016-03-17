@@ -5,7 +5,7 @@ configuration:
   experiment: "CMS"
   extra-label: "Preliminary"
   root: "results/latest"
-  luminosity: 2245.561
+  luminosity: 2299.856
   luminosity-error: 0.027
   show-overflow: true
   error-fill-style: 3154
