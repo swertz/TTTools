@@ -22,13 +22,20 @@ def joinCuts(*cuts):
 
 #### The IDs/... we want to run on ####
 
+# Default choice
 electronID = { TT.LepID.M: "M" }
-#electronID = { TT.LepID.L: "L", TT.LepID.M: "M" }
-#electronID = { TT.LepID.L: "L", TT.LepID.M: "M", TT.LepID.T: "T" }
 muonID = { TT.LepID.T: "T" }
-
 electronIso = { TT.LepIso.L: "L" }
 muonIso = { TT.LepIso.T: "T" }
+
+#electronID = { TT.LepID.L: "L", TT.LepID.M: "M" }
+#electronID = { TT.LepID.L: "L", TT.LepID.M: "M", TT.LepID.T: "T" }
+
+# Loose (for TFs)
+#electronID = { TT.LepID.L: "L" }
+#muonID = { TT.LepID.L: "L" }
+#electronIso = { TT.LepIso.L: "L" }
+#muonIso = { TT.LepIso.L: "L" }
 
 #myBWPs = { wp.first: wp.second for wp in TT.BWP.map }
 #myBWPs = { TT.BWP.L: "L", TT.BWP.M: "M" } 
@@ -110,20 +117,15 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=False, 
                         muIDIso = TT.LepIDIso(id1, iso1)
                         elIDIso = TT.LepIDIso(id2, iso2)
 
+                    llBaseCatCuts = joinCuts(
+                            "runOnMC || runOn" + flavourChannel, # this ensures datasets's histograms are completely orthogonal
+                            catCut + "_Category_" + lepLepIDIsoStr + "_cut", 
+                            catCut + "_Mll_" + lepLepIDIsoStr + "_cut", 
+                            catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut"
+                            )
                     if useMCHLT:
-                        llBaseCatCuts = joinCuts(
-                                catCut + "_Category_" + lepLepIDIsoStr + "_cut", 
-                                catCut + "_Mll_" + lepLepIDIsoStr + "_cut", 
-                                catCut + "_DiLeptonTriggerMatch_" + lepLepIDIsoStr + "_cut", 
-                                catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut"
-                                )
-                    else:
-                        llBaseCatCuts = joinCuts(
-                                catCut + "_Category_" + lepLepIDIsoStr + "_cut", 
-                                catCut + "_Mll_" + lepLepIDIsoStr + "_cut", 
-                                catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut"
-                                )
-                    
+                        llBaseCatCuts = joinCuts(llBaseCatCuts, catCut + "_DiLeptonTriggerMatch_" + lepLepIDIsoStr + "_cut")
+
                     llStringsBase = {
                             "#CAT_TITLE#": catTitle + "_" + lepLepIDIsoStr, 
                             "#LEPLEP_IDISO#": TT.LepLepIDIso(id1, iso1, id2, iso2),

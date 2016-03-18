@@ -3,7 +3,9 @@ configuration:
   height: 800
   experiment: "CMS"
   extra-label: "Preliminary"
-  root: "results/latest"
+  root: "../histFactory/condor/160317_ttResolution_0/condor/output/"
+  #root: "results/latest"
+  luminosity: 1
   no-lumi-rescaling: true
   show-overflow: true
   error-fill-style: 3154
@@ -14,7 +16,7 @@ configuration:
   fit-line-width: 2
 
 files:
-  'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_diLep_histos.root':
+  'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_diLep.root':
     type: mc
     #cross-section: 831.76
     #generated-events: 9.79944e+07
@@ -36,6 +38,34 @@ plots:
     fit-legend-position: [0.22, 0.87]
 
   'llbbMet_TT_M_minus_Mgen_beforeFSR_CAT*':
+    x-axis: "M_{t#bar{t}} - M_{t#bar{t}, gen}"
+    y-axis: "Evt"
+    x-axis-range: [-500, 500]
+    y-axis-format: "%1% / %2$.0f"
+    normalized: false
+    log-y: false
+    save-extensions: ["png"]
+    show-ratio: true
+    fit: true
+    fit-function: 'gaus'
+    fit-legend: '#scale[1.6]{#splitline{#mu = %2$.3f}{#sigma = %3$.3f}}'
+    fit-legend-position: [0.22, 0.87]
+
+  'llbbMet_RecoTop_TT_M_resolution_CAT*':
+    x-axis: "(M_{t#bar{t}} - M_{t#bar{t}, gen}) / M_{t#bar{t}, gen}"
+    y-axis: "Evt"
+    x-axis-range: [-2, 2]
+    y-axis-format: "%1% / %2$.0f"
+    normalized: false
+    log-y: false
+    save-extensions: ["png"]
+    show-ratio: true
+    fit: true
+    fit-function: 'gaus'
+    fit-legend: '#scale[1.6]{#splitline{#mu = %2$.3f}{#sigma = %3$.3f}}'
+    fit-legend-position: [0.22, 0.87]
+
+  'llbbMet_RecoTop_TT_M_minus_Mgen_CAT*':
     x-axis: "M_{t#bar{t}} - M_{t#bar{t}, gen}"
     y-axis: "Evt"
     x-axis-range: [-500, 500]

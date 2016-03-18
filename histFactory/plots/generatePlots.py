@@ -24,9 +24,9 @@ import transferFunctions
 categoryPlots = {
         
         ## ask for 2 leptons; vary over lepton ID & iso for two leptons
-        #"llCategs": { 
-        #    "plots": basePlots.ll,
-        #    },
+        "llCategs": { 
+            "plots": basePlots.ll,
+            },
         
         # ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons(take loosest ones for jet minDRjl cut)
         "lljjCategs": { 
@@ -45,9 +45,9 @@ categoryPlots = {
         
         # ask for 2 leptons & 2 b-jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and two b-tag working point
         "llbbCategs": { 
-            "plots": basePlots.ll + basePlots.lljj + basePlots.llbb,
+            "plots": basePlots.ll + basePlots.lljj + basePlots.llbb + basePlots.llbb_recoTop,
             #"plots": transferFunctions.matchedBTFs,
-            #"plots": basePlots.llbb,
+            #"plots": basePlots.genInfo + basePlots.llbb,
             },
     
     }
@@ -103,7 +103,7 @@ for flav in flavourCategPlots.values():
                 if "RecoTop" in m_plot["name"]:
                     tt_index = str(len(recoTTbarStrings))
                     m_plot["variable"] = m_plot["variable"].replace("#RECOTTBAR_INDEX#", tt_index)
-                    m_plot["plot_cut"] = joinCuts(m_plot["plot_cut"], "recoTTbar[" + tt_index + "].diLepDiJetIdx>0")
+                    m_plot["plot_cut"] = joinCuts(m_plot["plot_cut"], "recoTTbar[" + tt_index + "].nSols>0")
                     if (m_plot["plot_cut"],subCateg) not in recoTTbarStrings:
                         recoTTbarStrings.append( (m_plot["plot_cut"],subCateg) )
                 
@@ -116,14 +116,15 @@ print "Generated {} plots.\n".format(len(plots))
 #### Include source file with the HLT SFs ####
 
 includes = ["HLT_SF.h", "TTbarReconstruction/SmearingFunction.h", "TTbarReconstruction/TTbarReconstructor.h"]
+#includes = ["HLT_SF.h", "TTbarReconstruction/SmearingFunction.h", "TTbarReconstruction/TTbarReconstructor.h", "<Math/VectorUtil.h>"]
 sources = [pathTT + "/src/NeutrinosSolver.cc"]
 
 #### TTbar system reconstruction ####
 
 code_before_loop = """
 DiracDelta topMass(172.5);
-//BreitWigner wMass(80.4, 2.5, 1.5);
-DiracDelta wMass(80.4);
+BreitWigner wMass(80.4, 2.0, 2);
+//DiracDelta wMass(80.4);
 //DiracDelta bJetTF;
 SimpleGaussianOnEnergy bJetTF(0, 0.1, 2);
 DiracDelta leptonDelta;
@@ -147,11 +148,12 @@ recoTTbar[#RECOTTBAR_INDEX#] = myReconstructor.getSolution(
   tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isElEl,
   tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isElMu,
   tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isMuEl,
-  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isMuMu
+  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isMuMu,
+  tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].charge
   );
 """
 
-code_in_loop = "std::vector<TTAnalysis::TTBar> recoTTbar(" + str(len(recoTTbarStrings)) + ");\n"
+code_in_loop = "std::vector<TTbarSolution> recoTTbar(" + str(len(recoTTbarStrings)) + ");\n"
 
 for index, thisTTbar in enumerate(recoTTbarStrings):
     this_code = ttbar_base_code

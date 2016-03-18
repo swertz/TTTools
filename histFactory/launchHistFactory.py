@@ -24,6 +24,7 @@ IDs = range(1462, 1483)
 IDs.remove(1479)
 IDs.remove(1471)
 IDs.append(1506)
+#IDs = [1506]
 
 parser = argparse.ArgumentParser(description='Facility to submit histFactory jobs on condor.', usage='Usage in TTTools/histFactory: python launchHistFactory.py -o condorOutDir -f -p pathToPlotterExe [-s]')
 parser.add_argument('-o', '--output', dest='output', default=str(datetime.date.today()), help='Name of output directory.')
@@ -36,7 +37,7 @@ args = parser.parse_args()
 
 samples = []
 for ID in IDs:
-    filesperJob = 5
+    filesperJob = 10
     samples.append(
         {
             "ID": ID,
@@ -67,7 +68,7 @@ if args.filter :
     for jsonSampleFilePath in jsonSampleFileList : 
         with open(jsonSampleFilePath, 'r') as jsonSampleFile :
             jsonSample = json.load(jsonSampleFile)
-            for sampleName in  jsonSample.keys():
+            for sampleName in jsonSample.keys():
                 if 'TT_TuneCUETP8M1_13TeV-powheg-pythia8' in sampleName : 
 
                     ttflname = sampleName + "_diLep"
@@ -84,6 +85,7 @@ if args.filter :
                     jsonSample[ttfhname] = copy.deepcopy(jsonSample[sampleName])
                     jsonSample[ttfhname]["sample_cut"] = "tt_gen_ttbar_decay_type <= 1"
                     jsonSample[ttfhname]["output_name"] += "_hadr"
+                    
                     jsonSample.pop(sampleName)
 
         with open(jsonSampleFilePath, 'w+') as jsonSampleFile :
