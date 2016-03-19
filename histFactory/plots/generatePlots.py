@@ -24,14 +24,14 @@ import transferFunctions
 categoryPlots = {
         
         ## ask for 2 leptons; vary over lepton ID & iso for two leptons
-        "llCategs": { 
-            "plots": basePlots.ll,
-            },
-        
-        # ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons(take loosest ones for jet minDRjl cut)
-        "lljjCategs": { 
-            "plots": basePlots.ll + basePlots.lljj,
-            },
+        #"llCategs": { 
+        #    "plots": basePlots.ll,
+        #    },
+        #
+        ## ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons(take loosest ones for jet minDRjl cut)
+        #"lljjCategs": { 
+        #    "plots": basePlots.ll + basePlots.lljj,
+        #    },
         
         ## ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and one b-tag working point
         #"lljj_b_Categs": { 
@@ -45,9 +45,9 @@ categoryPlots = {
         
         # ask for 2 leptons & 2 b-jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and two b-tag working point
         "llbbCategs": { 
-            "plots": basePlots.ll + basePlots.lljj + basePlots.llbb + basePlots.llbb_recoTop,
+            #"plots": basePlots.ll + basePlots.lljj + basePlots.llbb + basePlots.llbb_recoTop,
             #"plots": transferFunctions.matchedBTFs,
-            #"plots": basePlots.genInfo + basePlots.llbb,
+            "plots": basePlots.genInfo + basePlots.llbb_recoTop,
             },
     
     }
@@ -61,7 +61,7 @@ for categ in categoryPlots.values():
 flavourCategPlots = { flav: copy.deepcopy(categoryPlots) for flav in myFlavours }
 
 for flav in flavourCategPlots.items():
-    generateCategoryStrings(flav[1], flav[0], useMCHLT=True)
+    generateCategoryStrings(flav[1], flav[0], doZVeto=False, useMCHLT=True)
 
 #### Generate all the plots ####
 
@@ -103,9 +103,10 @@ for flav in flavourCategPlots.values():
                 if "RecoTop" in m_plot["name"]:
                     tt_index = str(len(recoTTbarStrings))
                     m_plot["variable"] = m_plot["variable"].replace("#RECOTTBAR_INDEX#", tt_index)
+                    thisCutWithoutRecoTTbar = m_plot["plot_cut"]
                     m_plot["plot_cut"] = joinCuts(m_plot["plot_cut"], "recoTTbar[" + tt_index + "].nSols>0")
                     if (m_plot["plot_cut"],subCateg) not in recoTTbarStrings:
-                        recoTTbarStrings.append( (m_plot["plot_cut"],subCateg) )
+                        recoTTbarStrings.append( (thisCutWithoutRecoTTbar,subCateg) )
                 
                 plots.append(m_plot)
 
@@ -123,23 +124,25 @@ sources = [pathTT + "/src/NeutrinosSolver.cc"]
 
 code_before_loop = """
 DiracDelta topMass(172.5);
-BreitWigner wMass(80.4, 2.0, 2);
-//DiracDelta wMass(80.4);
+//BreitWigner wMass(80.4, 2.0, 2);
+DiracDelta wMass(80.4);
 //DiracDelta bJetTF;
-SimpleGaussianOnEnergy bJetTF(0, 0.1, 2);
+//SimpleGaussianOnEnergy bJetTF(0, 0.1, 2);
+TFile* tfFile = TFile::Open("/home/fynu/swertz/scratch/CMSSW_7_6_3_patch2/src/cp3_llbb/TTTools/histFactory/transferFunctions/tf_beforeFSR_allLoose.root");
+Binned2DTransferFunction bJetTF("bJet_bParton_DeltaEvsE_Norm", tfFile);
 DiracDelta leptonDelta;
 
-TTbarReconstructor myReconstructor(
+TTbarReconstructor *myReconstructor = new TTbarReconstructor(
                     leptonDelta,
                     leptonDelta,
                     bJetTF,
                     wMass,
                     topMass,
-                    500);
+                    1000);
 """
 
 ttbar_base_code = """
-recoTTbar[#RECOTTBAR_INDEX#] = myReconstructor.getSolution(
+recoTTbar[#RECOTTBAR_INDEX#] = myReconstructor->getSolution(
   tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].p4,
   tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].p4,
   tt_selJets[ tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first ].p4,
@@ -154,6 +157,8 @@ recoTTbar[#RECOTTBAR_INDEX#] = myReconstructor.getSolution(
 """
 
 code_in_loop = "std::vector<TTbarSolution> recoTTbar(" + str(len(recoTTbarStrings)) + ");\n"
+
+code_after_loop = "delete myReconstructor; tfFile->Close();"
 
 for index, thisTTbar in enumerate(recoTTbarStrings):
     this_code = ttbar_base_code

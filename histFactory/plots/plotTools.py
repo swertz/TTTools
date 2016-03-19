@@ -50,7 +50,7 @@ keepOnlySymmetricWP = False
 
 #### UTILITY TO GENERATE ALL THE NEEDED CATEGORIES ####
 
-def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=False, useMCHLT=False):
+def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=True, useMCHLT=False):
     if flavourChannel not in [ "MuMu", "ElMu", "MuEl", "ElEl" ]:
         raise Exception("Wrong flavour passed to string generator: %r." % flavourChannel)
 
@@ -66,26 +66,26 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=False, 
         lep2IDs = electronID.keys()
         lep1Isos = electronIso.keys()
         lep2Isos = electronIso.keys()
-        doZVeto = True
     
     if flavourChannel == "ElMu":
         lep1IDs = electronID.keys()
         lep2IDs = muonID.keys()
         lep1Isos = electronIso.keys()
         lep2Isos = muonIso.keys()
+        doZVeto = False
     
     if flavourChannel == "MuEl":
         lep1IDs = muonID.keys()
         lep2IDs = electronID.keys()
         lep1Isos = muonIso.keys()
         lep2Isos = electronIso.keys()
+        doZVeto = False
     
     if flavourChannel == "MuMu":
         lep1IDs = muonID.keys()
         lep2IDs = muonID.keys()
         lep1Isos = muonIso.keys()
         lep2Isos = muonIso.keys()
-        doZVeto = True
     
 
     for id1 in lep1IDs:

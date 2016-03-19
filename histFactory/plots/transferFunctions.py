@@ -146,6 +146,13 @@ matchedBTFs = [
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': '(2, 0, 2)',
         },
+        # both b and bbar
+        {
+            'name': 'Matched_b_bbar_CSVv2_CAT_#CAT_TITLE#',
+            'variable': '(( tt_gen_bbar_beforeFSR >= 0 && tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ]) )&&( tt_gen_b_beforeFSR >= 0 && tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ]) )) ? 1 : 0',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': '(2, 0, 2)',
+        },
         {
             'name': 'Matched_b_Pt_CAT_#CAT_TITLE#',
             'variable': '( tt_gen_b_beforeFSR >= 0 && tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ]) ) ? 1 : 0',
@@ -155,6 +162,13 @@ matchedBTFs = [
         {
             'name': 'Matched_bbar_Pt_CAT_#CAT_TITLE#',
             'variable': '( tt_gen_bbar_beforeFSR >= 0 && tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ]) ) ? 1 : 0',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': '(2, 0, 2)',
+        },
+        # both b and bbar
+        {
+            'name': 'Matched_b_bbar_Pt_CAT_#CAT_TITLE#',
+            'variable': '(( tt_gen_bbar_beforeFSR >= 0 && tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_bbar_beforeFSR[#MIN_LEP_IDISO#] ]) )&&( tt_gen_b_beforeFSR >= 0 && tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] >= 0 && ( tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ] || tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_PtOrdered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second == tt_selJets_selID_DRCut[#MIN_LEP_IDISO#][ tt_gen_matched_b_beforeFSR[#MIN_LEP_IDISO#] ]) )) ? 1 : 0',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': '(2, 0, 2)',
         },

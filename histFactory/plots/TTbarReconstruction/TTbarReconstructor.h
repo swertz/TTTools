@@ -57,7 +57,7 @@ class TTbarSolution {
     TTbarSolution& operator+=(const TTbarSolution& sol){
       t_pt += sol.t_pt; t_eta += sol.t_eta; t_phi += sol.t_phi; t_y += sol.t_y; t_e += sol.t_e;
       tbar_pt += sol.tbar_pt; tbar_eta += sol.tbar_eta; tbar_phi += sol.tbar_phi; tbar_y += sol.tbar_y; tbar_e += sol.tbar_e;
-      ttbar_pt += sol.ttbar_pt; ttbar_eta += sol.ttbar_eta; ttbar_phi += sol.ttbar_phi; ttbar_y += sol.ttbar_y; ttbar_e += sol.ttbar_e;
+      ttbar_pt += sol.ttbar_pt; ttbar_eta += sol.ttbar_eta; ttbar_phi += sol.ttbar_phi; ttbar_m += sol.ttbar_m; ttbar_y += sol.ttbar_y; ttbar_e += sol.ttbar_e;
       ttbar_DR += sol.ttbar_DR; ttbar_DPhi += sol.ttbar_DPhi; ttbar_DEta += sol.ttbar_DEta;
       nSols += sol.nSols;
       return *this;
@@ -75,7 +75,7 @@ class TTbarSolution {
     TTbarSolution& operator*=(const double w){
       t_pt *= w; t_eta *= w; t_phi *= w; t_y *= w; t_e *= w;
       tbar_pt *= w; tbar_eta *= w; tbar_phi *= w; tbar_y *= w; tbar_e *= w;
-      ttbar_pt *= w; ttbar_eta *= w; ttbar_phi *= w; ttbar_y *= w; ttbar_e *= w;
+      ttbar_pt *= w; ttbar_eta *= w; ttbar_phi *= w; ttbar_m *= w; ttbar_y *= w; ttbar_e *= w;
       ttbar_DR *= w; ttbar_DPhi *= w; ttbar_DEta *= w;
       return *this;
     }
