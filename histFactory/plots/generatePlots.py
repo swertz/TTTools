@@ -6,11 +6,12 @@ import inspect
 import os
 import sys
 
-#### Get directory where script is stored to handle the import correctly
+#### Get directory where scripts are stored to handle the import correctly
 scriptDir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 sys.path.append(scriptDir)
+sys.path.append(scriptDir + "/../../")
 
-from TTAnalysis import pathCMS, pathTT
+from common.TTAnalysis import pathCMS, pathTT, joinCuts
 
 #### Get dictionary definitions ####
 from plotTools import *
@@ -116,8 +117,7 @@ print "Generated {} plots.\n".format(len(plots))
 
 #### Include source file with the HLT SFs ####
 
-includes = ["HLT_SF.h", "TTbarReconstruction/SmearingFunction.h", "TTbarReconstruction/TTbarReconstructor.h"]
-#includes = ["HLT_SF.h", "TTbarReconstruction/SmearingFunction.h", "TTbarReconstruction/TTbarReconstructor.h", "<Math/VectorUtil.h>"]
+includes = ["../../common/HLT_SF.h", "../../common/TTbarReconstruction/SmearingFunction.h", "../../common/TTbarReconstruction/TTbarReconstructor.h"]
 sources = [pathTT + "/src/NeutrinosSolver.cc"]
 
 #### TTbar system reconstruction ####

@@ -1,9 +1,10 @@
 #!/nfs/soft/python/python-2.7.5-sl6_amd64_gcc44/bin/python
 
-# usage in TTTools/histFactory : python launchHistFactory.py -o condorOutDir -t -p pathToPlotterExe [-s]
+# usage in TTTools/histFactory : python launchJobs.py -o condorOutDir -t -p pathToPlotterExe [-s]
 
 import sys, os, json
-sys.path.append("../../CommonTools/histFactory/")
+sys.path.append("../CommonTools/histFactory/")
+sys.path.append("../CommonTools/treeFactory/")
 import copy
 import datetime
 
@@ -26,7 +27,7 @@ sys.path.append(os.path.join(CMSSW_BASE,'bin', SCRAM_ARCH))
 #IDs.append(1506)
 IDs = [1506]
 
-parser = argparse.ArgumentParser(description='Facility to submit histFactory jobs on condor.', usage='Usage in TTTools/histFactory: python launchHistFactory.py -o condorOutDir -f -p pathToPlotterExe [-s]')
+parser = argparse.ArgumentParser(description='Facility to submit treeFactory/histFactory jobs on condor.', usage='Usage in TTTools/common: python launchHistFactory.py -o condorOutDir -f -p pathToPlotterExe [-s]')
 parser.add_argument('-o', '--output', dest='output', default=str(datetime.date.today()), help='Name of output directory.')
 parser.add_argument('-s', '--submit', help='Choice to actually submit the jobs or not.', action="store_true")
 parser.add_argument('-f', '--filter', dest='filter', default=False, help='Apply filter on DY ht and TT lepton flavour.', action="store_true")
