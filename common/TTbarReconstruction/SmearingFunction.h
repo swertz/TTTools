@@ -165,13 +165,16 @@ class Binned2DTransferFunction: public SmearingFunction {
     virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const double psPoint) const {
       const double Erec = input.E();
       const double Erange = GetDeltaRange(Erec);
-      const double Egen = Erec - GetDeltaMax(Erec) + Erange * psPoint;
+      double Egen = Erec - GetDeltaMax(Erec) + Erange * psPoint;
       const double pTgen = sqrt( pow(Egen, 2) - pow(input.M(), 2) ) / cosh(input.Eta());
       output.SetCoordinates(pTgen, input.Eta(), input.Phi(), Egen);
       
       const double delta = Erec - Egen;
-      if(Egen < _EgenMin || Egen > _EgenMax || delta > _deltaMax || delta < _deltaMin)
+      if(Egen < _EgenMin || delta > _deltaMax || delta < _deltaMin)
         return 0.;
+      // We assume the TF continues asymptotically as a constant for Egen -> infinity
+      if(Egen >= _EgenMax)
+        Egen = _EgenMax - 1;
 
       // Use ROOT's global bin number "feature" for 2-dimensional histograms
       const int bin = _TF->FindFixBin(Egen, delta);

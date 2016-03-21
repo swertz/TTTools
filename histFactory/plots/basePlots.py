@@ -40,6 +40,12 @@ genInfo = [
             'binning': (50, -6, 6)
         },
         {
+            'name': 'gen_T_DRbl_vs_TT_M_CAT_#CAT_TITLE#',
+            'variable': 'ROOT::Math::VectorUtil::DeltaR(tt_genParticles[tt_gen_lepton_t_beforeFSR].p4, tt_genParticles[tt_gen_b_beforeFSR].p4) ::: tt_gen_ttbar_beforeFSR_p4.M()',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_gen_ttbar_decay_type >= 4', 'tt_gen_ttbar_decay_type <= 6'),
+            'binning': (100, 0, 6, 100, 250, 3000)
+        },
+        {
             'name': 'gen_Tbar_Pt_BeforeFSR_CAT_#CAT_TITLE#',
             'variable': 'tt_genParticles[tt_gen_tbar_beforeFSR].p4.Pt()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_gen_ttbar_decay_type > 0'),
@@ -57,6 +63,13 @@ genInfo = [
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_gen_ttbar_decay_type > 0'),
             'binning': (50, -6, 6)
         },
+        {
+            'name': 'gen_Tbar_DRbl_vs_TT_M_CAT_#CAT_TITLE#',
+            'variable': 'ROOT::Math::VectorUtil::DeltaR(tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4, tt_genParticles[tt_gen_bbar_beforeFSR].p4) ::: tt_gen_ttbar_beforeFSR_p4.M()',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_gen_ttbar_decay_type >= 4', 'tt_gen_ttbar_decay_type <= 6'),
+            'binning': (100, 0, 6, 100, 250, 3000)
+        },
+        {
         {
             'name': 'gen_TT_M_BeforeFSR_CAT_#CAT_TITLE#',
             'variable': 'tt_gen_ttbar_beforeFSR_p4.M()',
@@ -99,6 +112,12 @@ genInfo = [
         #    'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_gen_ttbar_decay_type > 0'),
         #    'binning': (50, -6, 6)
         #},
+        {
+            'name': 'gen_DRbl_vs_TT_M_CAT_#CAT_TITLE#',
+            'variable': 'ROOT::VectorUtil::DeltaR(tt_genParticles[tt_gen_lepton_t tt_gen_ttbar_beforeFSR_p4.M()',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_gen_ttbar_decay_type > 0'),
+            'binning': (50, -6, 6)
+        },
 
 ]
 
