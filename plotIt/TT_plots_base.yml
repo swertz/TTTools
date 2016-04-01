@@ -128,7 +128,7 @@
   log-y: both
   save-extensions: ["png"]
   show-ratio: false
-  legend-position: [0.23, 0.6, 0.44, 0.91]
+  #legend-position: [0.23, 0.6, 0.44, 0.91]
   no-data: true
 
 ### LEPTON 2 ###
@@ -214,7 +214,7 @@
   log-y: both
   save-extensions: ["png"]
   show-ratio: false
-  legend-position: [0.23, 0.6, 0.44, 0.91]
+  #legend-position: [0.23, 0.6, 0.44, 0.91]
   no-data: true
 
 ### DILEPTON ###
@@ -296,6 +296,19 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
+## nJets ##
+
+'nJets_CAT_base_ID??_Iso*':
+  x-axis: "nJet"
+  y-axis: "Evt"
+  y-axis-format: "%1% / %2$.0f"
+  normalized: false
+  x-axis-range: [0, 10]
+  binning-x: 1
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
 ### (B-)JET 1 ###
 
 '*jet1_pt_CAT_base_ID??_Iso*':
@@ -362,7 +375,7 @@
   log-y: both
   save-extensions: ["png"]
   show-ratio: false
-  legend-position: [0.23, 0.6, 0.44, 0.91]
+  #legend-position: [0.23, 0.6, 0.44, 0.91]
   no-data: true
 
 ### (B-)JET 2 ###
@@ -431,7 +444,7 @@
   log-y: both
   save-extensions: ["png"]
   show-ratio: false
-  legend-position: [0.23, 0.6, 0.44, 0.91]
+  #legend-position: [0.23, 0.6, 0.44, 0.91]
   no-data: true
 
 ### DIJETS ###
@@ -807,18 +820,7 @@
 #  save-extensions: ["png"]
 #  show-ratio: true
 
-## n(B)Jets ##
-
-'nJets_CAT_base_ID??_Iso*':
-  x-axis: "nJet"
-  y-axis: "Evt"
-  y-axis-format: "%1% / %2$.0f"
-  normalized: false
-  x-axis-range: [0, 10]
-  binning-x: 1
-  log-y: both
-  save-extensions: ["png"]
-  show-ratio: true
+## nB-jets: would need exclusive scale factors...
 #
 #'nBJets_L_CAT_base_ID??_Iso*':
 #  x-axis: "nLooseBJet"
@@ -1094,6 +1096,15 @@
   save-extensions: ["png"]
   show-ratio: true
 
+'llbbMet_TT_Rapidity_CAT_base_ID??_Iso*':
+  x-axis: "y_{t#bar{t}}"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
 #'llbbMet_DPhi_top1_top2t_CAT_base_ID??_Iso*':
 #  x-axis: "#Delta #varphi_{t, #bar{t}}"
 #  y-axis: "Events"
@@ -1139,6 +1150,15 @@
   save-extensions: ["png"]
   show-ratio: true
 
+'llbbMet_T1_Rapidity_CAT_base_ID??_Iso*':
+  x-axis: "y_{top 1}"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
 'llbbMet_T2_Pt_CAT_base_ID??_Iso*':
   x-axis: "P_{T, top 2}"
   y-axis: "Events"
@@ -1150,6 +1170,15 @@
 
 'llbbMet_T2_Eta_CAT_base_ID??_Iso*':
   x-axis: "#eta_{top 2}"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
+'llbbMet_T2_Rapidity_CAT_base_ID??_Iso*':
+  x-axis: "y_{top 2}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
   normalized: false
@@ -1196,7 +1225,7 @@
   show-ratio: true
 
 'llbbMet_RecoTop_Top_Pt_CAT_base_ID??_Iso*':
-  x-axis: "P_{T, top 1}"
+  x-axis: "P_{T, t}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
   normalized: false
@@ -1205,7 +1234,16 @@
   show-ratio: true
 
 'llbbMet_RecoTop_Top_Eta_CAT_base_ID??_Iso*':
-  x-axis: "#eta_{top 1}"
+  x-axis: "#eta_{t}"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
+'llbbMet_RecoTop_Top_Rapidity_CAT_base_ID??_Iso*':
+  x-axis: "y_{t}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
   normalized: false
@@ -1214,7 +1252,7 @@
   show-ratio: true
 
 'llbbMet_RecoTop_AntiTop_Pt_CAT_base_ID??_Iso*':
-  x-axis: "P_{T, top 2}"
+  x-axis: "P_{T, #bar{t}}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
   normalized: false
@@ -1223,7 +1261,16 @@
   show-ratio: true
 
 'llbbMet_RecoTop_AntiTop_Eta_CAT_base_ID??_Iso*':
-  x-axis: "#eta_{top 2}"
+  x-axis: "#eta_{#bar{t}}"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
+'llbbMet_RecoTop_AntiTop_Rapidity_CAT_base_ID??_Iso*':
+  x-axis: "y_{#bar{t}}"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
   normalized: false

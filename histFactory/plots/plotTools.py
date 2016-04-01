@@ -10,9 +10,37 @@ sys.path.append(scriptDir + "/../../")
 from common.TTAnalysis import *
 from common.ScaleFactors import *
 
+#### The IDs/... we want to run on ####
+
+# Default choice
+electronID = { TT.LepID.M: "M" }
+muonID = { TT.LepID.T: "T" }
+electronIso = { TT.LepIso.L: "L" }
+muonIso = { TT.LepIso.T: "T" }
+
+#electronID = { TT.LepID.L: "L", TT.LepID.M: "M" }
+#electronID = { TT.LepID.L: "L", TT.LepID.M: "M", TT.LepID.T: "T" }
+
+# Loose (for b-jet TFs)
+#electronID = { TT.LepID.L: "L" }
+#muonID = { TT.LepID.L: "L" }
+#electronIso = { TT.LepIso.L: "L" }
+#muonIso = { TT.LepIso.L: "L" }
+
+#myBWPs = { wp.first: wp.second for wp in TT.BWP.map }
+#myBWPs = { TT.BWP.L: "L", TT.BWP.M: "M" } 
+myBWPs = { TT.BWP.L: "L" } 
+
+myFlavours = [ "ElEl", "MuEl", "ElMu", "MuMu" ]
+#myFlavours = [ "ElEl" ]
+#myFlavours = [ "MuMu" ]
+#myFlavours = [ "ElMu", "MuEl" ]
+
+keepOnlySymmetricWP = False
+
 #### UTILITY TO GENERATE ALL THE NEEDED CATEGORIES ####
 
-def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=True, useMCHLT=False):
+def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=True, addHighMET=True, useMCHLT=False):
     if flavourChannel not in [ "MuMu", "ElMu", "MuEl", "ElEl" ]:
         raise Exception("Wrong flavour passed to string generator: %r." % flavourChannel)
 
@@ -83,7 +111,8 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=True, u
                             "runOnMC || runOn" + flavourChannel, # this ensures datasets's histograms are completely orthogonal
                             catCut + "_Category_" + lepLepIDIsoStr + "_cut", 
                             catCut + "_Mll_" + lepLepIDIsoStr + "_cut", 
-                            catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut"
+                            catCut + "_DiLeptonIsOS_" + lepLepIDIsoStr + "_cut",
+                            "Length$(tt_diLeptons_IDIso[" + str(TT.LepLepIDIso(id1, iso1, id2, iso2)) + "]) == 1", # veto additional leptons
                             )
                     if useMCHLT:
                         llBaseCatCuts = joinCuts(llBaseCatCuts, catCut + "_DiLeptonTriggerMatch_" + lepLepIDIsoStr + "_cut")
@@ -196,7 +225,7 @@ def generateCategoryStrings(categoryStringsDico, flavourChannel, doZVeto=True, u
 
 
     # Duplicate everything and ask for MET if we are same-flavour
-    if flavourChannel in ["ElEl", "MuMu"]:
+    if flavourChannel in ["ElEl", "MuMu"] and addHighMET:
         for categName, categGroup in categoryStringsDico.items():
             metStrings = []
             weights = []

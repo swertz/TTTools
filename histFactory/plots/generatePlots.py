@@ -25,13 +25,18 @@ import transferFunctions
 categoryPlots = {
         
         ## ask for 2 leptons; vary over lepton ID & iso for two leptons
-        #"llCategs": { 
-        #    "plots": basePlots.ll,
-        #    },
-        #
+        "llCategs": { 
+            #"plots": basePlots.yields,
+            #"plots": basePlots.yields + basePlots.ll,
+            "plots": basePlots.genInfo
+            #"plots": transferFunctions.leptonTFs,
+            },
+        
         ## ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons(take loosest ones for jet minDRjl cut)
         #"lljjCategs": { 
-        #    "plots": basePlots.ll + basePlots.lljj,
+        #    "plots": basePlots.yields,
+        #    #"plots": basePlots.yields + basePlots.ll + basePlots.lljj,
+        #    #"plots": basePlots.genInfo
         #    },
         
         ## ask for 2 leptons & 2 jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and one b-tag working point
@@ -46,11 +51,11 @@ categoryPlots = {
         
         # ask for 2 leptons & 2 b-jets; vary over lepton ID & iso for two leptons (take loosest ones for jet minDRjl cut), and two b-tag working point
         "llbbCategs": { 
-            #"plots": basePlots.ll + basePlots.lljj + basePlots.llbb + basePlots.llbb_recoTop,
-            #"plots": transferFunctions.matchedBTFs,
-            "plots": basePlots.genInfo + basePlots.llbb_recoTop,
+            #"plots": basePlots.yields + basePlots.ll + basePlots.llbb,
+            #"plots": basePlots.yields + basePlots.ll + basePlots.llbb + basePlots.llbb_recoTop,
+            "plots": transferFunctions.matchedBTFs
+            #"plots": basePlots.yields + basePlots.llbb_recoTop,
             },
-    
     }
 
 # Initialize maps needed later
@@ -62,7 +67,7 @@ for categ in categoryPlots.values():
 flavourCategPlots = { flav: copy.deepcopy(categoryPlots) for flav in myFlavours }
 
 for flav in flavourCategPlots.items():
-    generateCategoryStrings(flav[1], flav[0], doZVeto=False, useMCHLT=True)
+    generateCategoryStrings(flav[1], flav[0], doZVeto=False, addHighMET=False, useMCHLT=True)
 
 #### Generate all the plots ####
 
@@ -111,61 +116,75 @@ for flav in flavourCategPlots.values():
                 
                 plots.append(m_plot)
 
-                print "Plot: {}\nVariable: {}\nCut: {}\nWeight: {}\nBinning: {}\n".format(m_plot["name"], m_plot["variable"], m_plot["plot_cut"], m_plot["weight"], m_plot["binning"])
+                #print "Plot: {}\nVariable: {}\nCut: {}\nWeight: {}\nBinning: {}\n".format(m_plot["name"], m_plot["variable"], m_plot["plot_cut"], m_plot["weight"], m_plot["binning"])
 
 print "Generated {} plots.\n".format(len(plots))
 
+#### Additional stuff
+
+includes = []
+sources = []
+code_before_loop = ""
+code_in_loop = ""
+code_after_loop = ""
+extra_branches = []
+
+extra_branches += ["tt_gen_ttbar_decay_type"]
+code_in_loop += "bool gen_isSignal = tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6;"
+
 #### Include source file with the HLT SFs ####
 
-includes = ["../../common/HLT_SF.h", "../../common/TTbarReconstruction/SmearingFunction.h", "../../common/TTbarReconstruction/TTbarReconstructor.h"]
-sources = [pathTT + "/src/NeutrinosSolver.cc"]
+includes += ["../../common/HLT_SF.h"]
 
 #### TTbar system reconstruction ####
 
-code_before_loop = """
-DiracDelta topMass(172.5);
-//BreitWigner wMass(80.4, 2.0, 2);
-DiracDelta wMass(80.4);
-//DiracDelta bJetTF;
-//SimpleGaussianOnEnergy bJetTF(0, 0.1, 2);
-TFile* tfFile = TFile::Open("/home/fynu/swertz/scratch/CMSSW_7_6_3_patch2/src/cp3_llbb/TTTools/histFactory/transferFunctions/tf_beforeFSR_allLoose.root");
-Binned2DTransferFunction bJetTF("bJet_bParton_DeltaEvsE_Norm", tfFile);
-DiracDelta leptonDelta;
+#includes += ["../../common/TTbarReconstruction/SmearingFunction.h", "../../common/TTbarReconstruction/TTbarReconstructor.h"]
+#sources += [pathTT + "/src/NeutrinosSolver.cc"]
 
-TTbarReconstructor *myReconstructor = new TTbarReconstructor(
-                    leptonDelta,
-                    leptonDelta,
-                    bJetTF,
-                    wMass,
-                    topMass,
-                    1000);
-"""
+#code_before_loop += """
+#DiracDelta topMass(172.5);
+#BreitWigner wMass(80.4, 2.0, 5);
+#DiracDelta wMass(80.4);
+#//DiracDelta bJetTF;
+#//SimpleGaussianOnEnergy bJetTF(0, 0.1, 2);
+#TFile* tfFile = TFile::Open("/home/fynu/swertz/scratch/CMSSW_7_6_3_patch2/src/cp3_llbb/TTTools/histFactory/transferFunctions/tf_beforeFSR_loose.root");
+#Binned2DTransferFunction bJetTF("bJet_bParton_DeltaEvsE_Norm", tfFile);
+#DiracDelta leptonDelta;
+#
+#TTbarReconstructor *myReconstructor = new TTbarReconstructor(
+#                    leptonDelta,
+#                    leptonDelta,
+#                    bJetTF,
+#                    wMass,
+#                    topMass,
+#                    1000);
+#"""
+#
+#ttbar_base_code = """
+#recoTTbar[#RECOTTBAR_INDEX#] = myReconstructor->getSolution(
+#  tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].p4,
+#  tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].p4,
+#  tt_selJets[ tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first ].p4,
+#  tt_selJets[ tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second ].p4,
+#  met_p4,
+#  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isElEl,
+#  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isElMu,
+#  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isMuEl,
+#  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isMuMu,
+#  tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].charge
+#  );
+#"""
 
-ttbar_base_code = """
-recoTTbar[#RECOTTBAR_INDEX#] = myReconstructor->getSolution(
-  tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].p4,
-  tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.second ].p4,
-  tt_selJets[ tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.first ].p4,
-  tt_selJets[ tt_diJets[ tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].diJetIdx ].jidxs.second ].p4,
-  met_p4,
-  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isElEl,
-  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isElMu,
-  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isMuEl,
-  tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].isMuMu,
-  tt_leptons[ tt_diLeptons[ tt_diLeptons_IDIso[#LEPLEP_IDISO#][0] ].lidxs.first ].charge
-  );
-"""
+#code_in_loop += "std::vector<TTbarSolution> recoTTbar(" + str(len(recoTTbarStrings)) + ");"
 
-code_in_loop = "std::vector<TTbarSolution> recoTTbar(" + str(len(recoTTbarStrings)) + ");\n"
-
-code_after_loop = "delete myReconstructor; tfFile->Close();"
-
-for index, thisTTbar in enumerate(recoTTbarStrings):
-    this_code = ttbar_base_code
-    for key in thisTTbar[1].items():
-        this_code = this_code.replace(key[0], str(key[1]))
-    this_code = this_code.replace("#RECOTTBAR_INDEX#", str(index))
-    this_code = "if(" + thisTTbar[0] + "){\n" + this_code + "\n}\n"
-    code_in_loop += this_code
-
-extra_branches = ["tt_leptons", "tt_diLeptons", "tt_diLeptons_IDIso", "tt_selJets", "tt_diJets", "tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered"]
+#code_after_loop += "delete myReconstructor; tfFile->Close();"
+#
+#for index, thisTTbar in enumerate(recoTTbarStrings):
+#    this_code = ttbar_base_code
+#    for key in thisTTbar[1].items():
+#        this_code = this_code.replace(key[0], str(key[1]))
+#    this_code = this_code.replace("#RECOTTBAR_INDEX#", str(index))
+#    this_code = "if(" + thisTTbar[0] + "){\n" + this_code + "\n}\n"
+#    code_in_loop += this_code
+#
+#extra_branches += ["tt_leptons", "tt_diLeptons", "tt_diLeptons_IDIso", "tt_selJets", "tt_diJets", "tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered"]

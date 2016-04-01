@@ -1,8 +1,11 @@
 #include <vector>
 #include <utility>
 
-float get_HLT_SF_for_dilepton(bool isElEl, bool isMuEl, bool isElMu, bool isMuMu, float eta1, float eta2){
+float get_HLT_SF_for_dilepton(bool isMC, bool isElEl, bool isMuEl, bool isElMu, bool isMuMu, float eta1, float eta2){
   
+  if(!isMC)
+    return 1;
+
   auto bin = [](float eta_leg1, float eta_leg2) -> std::pair<size_t, size_t> {
     size_t bin1 = std::abs(eta_leg1) <= 1.2 ? 0 : 1;
     size_t bin2 = std::abs(eta_leg2) <= 1.2 ? 0 : 1;

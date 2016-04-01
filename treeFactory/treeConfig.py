@@ -23,6 +23,26 @@ tree = {
                 "variable": "event_is_data",
                 "type": "bool"
             },
+            {
+                "name": "cut_isOS",
+                "variable": "diLepton_isOS",
+                "type": "bool"
+            },
+            {
+                "name": "cut_Mll",
+                "variable": "diLepton_Mll",
+                "type": "bool"
+            },
+            {
+                "name": "cut_ZVeto",
+                "variable": "diLepton_ZVeto",
+                "type": "bool"
+            },
+            {
+                "name": "cut_HLT",
+                "variable": "diLepton_HLT",
+                "type": "bool"
+            },
             ## Leptons
             {
                 "name": "lep1_p4",
@@ -185,6 +205,7 @@ tree = {
                 "variable": "tt_gen_ttbar_decay_type >= TTAnalysis::Dileptonic_mumu && tt_gen_ttbar_decay_type <= TTAnalysis::Dileptonic_mue",
                 "type": "bool"
             },
+            # Top, Tbar, TTbar
             {
                 "name": "gen_T_p4",
                 "variable": "tt_gen_t_beforeFSR >= 0 ? tt_genParticles[tt_gen_t_beforeFSR].p4 : myLorentzVector()",
@@ -210,8 +231,9 @@ tree = {
             },
             {
                 "name": "gen_TT_DPhi",
-                "variable": "tt_gen_t_tbar_deltaPhi"
+                "variable": "std::abs(tt_gen_t_tbar_deltaPhi)"
             },
+            # Top decay
             {
                 "name": "gen_lepton_T_p4",
                 "variable": "tt_gen_lepton_t_beforeFSR >= 0 ? tt_genParticles[tt_gen_lepton_t_beforeFSR].p4 : myLorentzVector()",
@@ -233,6 +255,15 @@ tree = {
                 "type": "myLorentzVector"
             },
             {
+                "name": "gen_Mbl_T_p4",
+                "variable": "(tt_gen_lepton_tbar_beforeFSR >= 0 && tt_gen_b_beforeFSR >= 0 ) ? (tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4 + tt_genParticles[tt_gen_b_beforeFSR].p4).M() : -1",
+            },
+            {
+                "name": "gen_DR_lepton_b",
+                "variable": "(tt_gen_b_beforeFSR >= 0 && tt_gen_lepton_t_beforeFSR >=0) ? ROOT::Math::VectorUtil::DeltaR(tt_genParticles[tt_gen_b_beforeFSR].p4, tt_genParticles[tt_gen_lepton_t_beforeFSR].p4) : -1",
+            },
+            # Tbar decay
+            {
                 "name": "gen_lepton_Tbar_p4",
                 "variable": "tt_gen_lepton_tbar_beforeFSR >= 0 ? tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4 : myLorentzVector()",
                 "type": "myLorentzVector"
@@ -253,12 +284,12 @@ tree = {
                 "type": "myLorentzVector"
             },
             {
-                "name": "gen_DR_lepton_bbar_p4",
-                "variable": "(tt_gen_bbar_beforeFSR >= 0 && tt_gen_lepton_tbar_beforeFSR >=0) ? ROOT::Math::VectorUtil::DeltaR(tt_genParticles[tt_gen_bbar_beforeFSR].p4, tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4) : -1",
+                "name": "gen_Mbl_T_p4",
+                "variable": "(tt_gen_lepton_tbar_beforeFSR >= 0 && tt_gen_b_beforeFSR >= 0 ) ? (tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4 + tt_genParticles[tt_gen_b_beforeFSR].p4).M() : -1",
             },
             {
-                "name": "gen_DR_lepton_b_p4",
-                "variable": "(tt_gen_b_beforeFSR >= 0 && tt_gen_lepton_t_beforeFSR >=0) ? ROOT::Math::VectorUtil::DeltaR(tt_genParticles[tt_gen_b_beforeFSR].p4, tt_genParticles[tt_gen_lepton_t_beforeFSR].p4) : -1",
+                "name": "gen_DR_lepton_bbar",
+                "variable": "(tt_gen_bbar_beforeFSR >= 0 && tt_gen_lepton_tbar_beforeFSR >=0) ? ROOT::Math::VectorUtil::DeltaR(tt_genParticles[tt_gen_bbar_beforeFSR].p4, tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4) : -1",
             },
             ## Matching
             ## Simple reco TTbar
@@ -290,7 +321,7 @@ tree = {
                 "variable": "tt_ttbar[leplepIDIsoBB][0].size() ? std::abs(tt_ttbar[leplepIDIsoBB][0][0].DPhi_tt) : -1",
             },
             {
-                "name": "simpleRecoTop_iValid",
+                "name": "simpleRecoTop_isValid",
                 "variable": "tt_ttbar[leplepIDIsoBB][0].size() > 0",
                 "type": "bool"
             },
@@ -360,8 +391,12 @@ tree = {
                 "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_DPhi : -1",
             },
             {
-                "name": "recoTop_TT_nSols",
+                "name": "recoTop_nSols",
                 "variable": "recoTTbar.nSols",
+            },
+            {
+                "name": "recoTop_sumW",
+                "variable": "recoTTbar.sumW",
             },
         ],
     }

@@ -3,14 +3,10 @@
 # usage in TTTools/histFactory : python launchJobs.py -o condorOutDir -t -p pathToPlotterExe [-s]
 
 import sys, os, json
-sys.path.append("../CommonTools/histFactory/")
-sys.path.append("../CommonTools/treeFactory/")
 import copy
 import datetime
 
 import argparse
-
-from condorTools import condorSubmitter
 
 # Add default ingrid storm package
 sys.path.append('/nfs/soft/python/python-2.7.5-sl6_amd64_gcc44/lib/python2.7/site-packages/storm-0.20-py2.7-linux-x86_64.egg')
@@ -19,13 +15,18 @@ sys.path.append('/nfs/soft/python/python-2.7.5-sl6_amd64_gcc44/lib/python2.7/sit
 CMSSW_BASE = os.environ['CMSSW_BASE']
 SCRAM_ARCH = os.environ['SCRAM_ARCH']
 sys.path.append(os.path.join(CMSSW_BASE,'bin', SCRAM_ARCH))
+sys.path.append(os.path.join(CMSSW_BASE, "src/cp3_llbb/CommonTools/histFactory/"))
+sys.path.append(os.path.join(CMSSW_BASE, "src/cp3_llbb/CommonTools/treeFactory/"))
+
+from condorTools import condorSubmitter
 
 # Prod 16/03/07
 #IDs = range(1462, 1483)
-#IDs.remove(1479)
+IDs = range(1462, 1471)
+IDs.remove(1467)
 #IDs.remove(1471)
-#IDs.append(1506)
-IDs = [1506]
+IDs.append(1506)
+#IDs = [1506]
 
 parser = argparse.ArgumentParser(description='Facility to submit treeFactory/histFactory jobs on condor.', usage='Usage in TTTools/common: python launchHistFactory.py -o condorOutDir -f -p pathToPlotterExe [-s]')
 parser.add_argument('-o', '--output', dest='output', default=str(datetime.date.today()), help='Name of output directory.')
@@ -71,11 +72,23 @@ if args.filter :
             jsonSample = json.load(jsonSampleFile)
             for sampleName in jsonSample.keys():
                 if 'TT_TuneCUETP8M1_13TeV-powheg-pythia8' in sampleName : 
-
-                    ttflname = sampleName + "_diLep"
+                    
+                    ## New division: dilep (excluding taus) and all the rest
+                    ttflname = sampleName + "_signal"
                     jsonSample[ttflname] = copy.deepcopy(jsonSample[sampleName])
-                    jsonSample[ttflname]["sample_cut"] = "(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 ) || tt_gen_ttbar_decay_type >= 8"
-                    jsonSample[ttflname]["output_name"] += "_diLep"
+                    jsonSample[ttflname]["sample_cut"] = "(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 )"
+                    jsonSample[ttflname]["output_name"] += "_signal"
+
+                    ttflname = sampleName + "_other"
+                    jsonSample[ttflname] = copy.deepcopy(jsonSample[sampleName])
+                    jsonSample[ttflname]["sample_cut"] = "!(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 )"
+                    jsonSample[ttflname]["output_name"] += "_other"
+
+                    ## Old division (dilep - semilep - hadr) with taus included in "lepton"
+                    #ttflname = sampleName + "_diLep"
+                    #jsonSample[ttflname] = copy.deepcopy(jsonSample[sampleName])
+                    #jsonSample[ttflname]["sample_cut"] = "(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 ) || tt_gen_ttbar_decay_type >= 8"
+                    #jsonSample[ttflname]["output_name"] += "_diLep"
 
                     #ttslname = sampleName + "_semiLep"
                     #jsonSample[ttslname] = copy.deepcopy(jsonSample[sampleName])

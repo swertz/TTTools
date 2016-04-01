@@ -57,7 +57,7 @@ bool diLepton_ZVeto = false;
 """
 
 category_code = """
-bool cat{3}_pre = tt_{4}_Category_{0}_cut && tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered[{2}].size() == 1;
+bool cat{3}_pre = tt_{4}_Category_{0}_cut && tt_diLeptons_IDIso[{1}].size() == 1 && tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered[{2}].size() >= 1;
 bool cat{3} = false;
 if(cat{3}_pre){{
     leplepIDIsoBB = {2};

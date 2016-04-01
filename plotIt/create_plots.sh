@@ -25,7 +25,7 @@ get_output_folder
 
 mkdir "$BASE_DIR/$OUTPUT_FOLDER"
 
-#for flavor in MuMu; do
+#for flavor in ElMu; do
 for flavor in MuMu ElEl MuEl ElMu; do
     mkdir "$BASE_DIR/$OUTPUT_FOLDER/$flavor"
 

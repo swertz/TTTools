@@ -96,38 +96,38 @@ if __name__ == "__main__":
             "smooth": "bJet_bParton_DeltaEvsE_Smoothed",
             "norm": "bJet_bParton_DeltaEvsE_Norm"
         },
-        {
-            "histNames":
-                [
-                    "TF_BA_b_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
-                    "TF_BA_bbar_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
-                    "TF_BA_b_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
-                    "TF_BA_bbar_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
-                    "TF_BA_b_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
-                    "TF_BA_bbar_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
-                    "TF_BA_b_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
-                    "TF_BA_bbar_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
-                ],
-            "base": "bJet_BA_bParton_DeltaEvsE",
-            "smooth": "bJet_BA_bParton_DeltaEvsE_Smoothed",
-            "norm": "bJet_BA_bParton_DeltaEvsE_Norm"
-        },
-        {
-            "histNames":
-                [
-                    "TF_EC_b_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
-                    "TF_EC_bbar_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
-                    "TF_EC_b_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
-                    "TF_EC_bbar_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
-                    "TF_EC_b_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
-                    "TF_EC_bbar_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
-                    "TF_EC_b_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
-                    "TF_EC_bbar_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
-                ],
-            "base": "bJet_EC_bParton_DeltaEvsE",
-            "smooth": "bJet_EC_bParton_DeltaEvsE_Smoothed",
-            "norm": "bJet_EC_bParton_DeltaEvsE_Norm"
-        }
+        #{
+        #    "histNames":
+        #        [
+        #            "TF_BA_b_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
+        #            "TF_BA_bbar_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
+        #            "TF_BA_b_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
+        #            "TF_BA_bbar_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
+        #            "TF_BA_b_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
+        #            "TF_BA_bbar_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
+        #            "TF_BA_b_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
+        #            "TF_BA_bbar_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
+        #        ],
+        #    "base": "bJet_BA_bParton_DeltaEvsE",
+        #    "smooth": "bJet_BA_bParton_DeltaEvsE_Smoothed",
+        #    "norm": "bJet_BA_bParton_DeltaEvsE_Norm"
+        #},
+        #{
+        #    "histNames":
+        #        [
+        #            "TF_EC_b_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
+        #            "TF_EC_bbar_E_CAT_MuMu_IDLL_IsoLL_bb_LL",
+        #            "TF_EC_b_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
+        #            "TF_EC_bbar_E_CAT_ElEl_IDLL_IsoLL_bb_LL",
+        #            "TF_EC_b_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
+        #            "TF_EC_bbar_E_CAT_ElMu_IDLL_IsoLL_bb_LL",
+        #            "TF_EC_b_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
+        #            "TF_EC_bbar_E_CAT_MuEl_IDLL_IsoLL_bb_LL",
+        #        ],
+        #    "base": "bJet_EC_bParton_DeltaEvsE",
+        #    "smooth": "bJet_EC_bParton_DeltaEvsE_Smoothed",
+        #    "norm": "bJet_EC_bParton_DeltaEvsE_Norm"
+        #}
     ]
 
     normAndSmooth(TFset, options.input, options.output)

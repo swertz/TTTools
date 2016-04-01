@@ -18,29 +18,17 @@
 
 ### TTbar ###
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_diLep.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_signal.root':
   type: mc
-  group: TT_diLep
-  #legend: 'TT diLep.'
-  #fill-color: '#EB6841'
+  group: TT_signal
   order: 2
   yields-title: '$t\overline{t}$ diLep.'
 
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_semiLep.root':
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_other.root':
   type: mc
-  group: TT_semiLep
-  #legend: 'TT semiLep.'
-  #fill-color: '#CFEB6841'
-  order: -2
+  group: TT_other
+  order: -1
   yields-title: '$t\overline{t}$ semiLep.'
-
-'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_hadr.root':
-  type: mc
-  group: TT_hadr
-  #legend: 'TT hadr.'
-  #fill-color: '#BBEB6841'
-  order: -4
-  yields-title: '$t\overline{t}$ hadr.'
 
 ### SingleTop ###
 
@@ -49,7 +37,7 @@
   group: ST
   #legend: 'Single Top tW'
   #fill-color: '#C02942'
-  order: -1
+  order: -2
   yields-title: 'tW'
 
 'ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
@@ -57,7 +45,7 @@
   group: ST
   #legend: 'Single Top tW'
   #fill-color: '#C02942'
-  order: -1
+  order: -2
   yields-title: 'tW'
 
 'ST_t-channel_4f_leptonDecays_13TeV-amcatnlo_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
@@ -65,78 +53,78 @@
   group: ST
   #legend: 'Single Top t-channel'
   #fill-color: '#CFC02942'
-  order: -1
+  order: -2
   yields-title: 't-chan.'
 
-'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: ST
-  order: -1
-  yields-title: 's-chan.'
-
-### VV ###
-
-'WWTo2L2Nu_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'WWToLNuQQ_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'ZZTo2L2Nu_13TeV_powheg_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-'ZZTo4L_13TeV_powheg_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: VV
-  order: -3
-  yields-title: 'VV'
-
-### W+jets ###
-
-'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
-  type: mc
-  group: Other
-  #legend: 'Wjets'
-  #fill-color: '#6A4A3C'
-  order: -5
-  yields-title: 'WJets'
-
+#'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: ST
+#  order: -1
+#  yields-title: 's-chan.'
+#
+#### VV ###
+#
+#'WWTo2L2Nu_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'WWToLNuQQ_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'ZZTo2L2Nu_13TeV_powheg_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#'ZZTo4L_13TeV_powheg_pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: VV
+#  order: -3
+#  yields-title: 'VV'
+#
+#### W+jets ###
+#
+#'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_8c15dc1_histos.root':
+#  type: mc
+#  group: Other
+#  #legend: 'Wjets'
+#  #fill-color: '#6A4A3C'
+#  order: -5
+#  yields-title: 'WJets'
+#

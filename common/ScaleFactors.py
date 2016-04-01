@@ -107,5 +107,5 @@ def get_HLT_SF_for_dilepton(dilepton_index, id1, id2, iso1, iso2):
     lepton_object_first = 'tt_leptons[%s.first]' % lepton_index
     lepton_object_second = 'tt_leptons[%s.second]' % lepton_index
 
-    return "get_HLT_SF_for_dilepton( {0}.isElEl, {0}.isMuEl, {0}.isElMu, {0}.isMuMu, {1}.p4.Eta(), {2}.p4.Eta() )".format(dilepton_object, lepton_object_first, lepton_object_second)
+    return "get_HLT_SF_for_dilepton(runOnMC, {0}.isElEl, {0}.isMuEl, {0}.isElMu, {0}.isMuMu, {1}.p4.Eta(), {2}.p4.Eta() )".format(dilepton_object, lepton_object_first, lepton_object_second)
 
