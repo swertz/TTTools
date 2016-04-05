@@ -13,7 +13,7 @@
   group: DY
   #legend: 'DY_M-10to50'
   #fill-color: '#00A0B0'
-  order: 0
+  order: 1
   yields-title: 'DY'
 
 ### TTbar ###
@@ -22,13 +22,19 @@
   type: mc
   group: TT_signal
   order: 2
-  yields-title: '$t\overline{t}$ diLep.'
+  yields-title: '$t\overline{t}\text{ diLep.}$'
+
+'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_tau.root':
+  type: mc
+  group: TT_other
+  order: 0
+  yields-title: '$t\overline{t}\text{ tau}'
 
 'TT_TuneCUETP8M1_13TeV-powheg-pythia8_Fall15MiniAODv2_v1.2.0+7415-75-g2a48fa7_TTAnalysis_fd2fe94_histos_other.root':
   type: mc
   group: TT_other
   order: -1
-  yields-title: '$t\overline{t}$ semiLep.'
+  yields-title: '$t\overline{t}\text{ other}$'
 
 ### SingleTop ###
 

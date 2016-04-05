@@ -11,6 +11,7 @@ sys.path.append(scriptDir)
 sys.path.append(scriptDir + "/../")
 
 from common.TTAnalysis import pathCMS, pathTT, joinCuts, TT
+import common.ScaleFactors as SF
 import treeConfig
 
 code_before_loop = ""
@@ -26,7 +27,8 @@ elIso = TT.LepIso.L
 muID = TT.LepID.T
 muIso = TT.LepIso.T
 
-bTag = TT.BWP.L
+bTag1 = TT.BWP.L
+bTag2 = TT.BWP.L
 
 #### Define flavour-independent quantities to be used in the code for the branches
 #### depending on which lepton pair is actually selected.
@@ -35,11 +37,17 @@ code_in_loop += """
 uint16_t leplepIDIso = 0;
 uint16_t leplepIDIsoBB = 0;
 
+// This can be modified if the TT reconstruction selects
+// another (ie not the first) di-jet pair!
+uint16_t chosenDiLepDiBJetsMet = 0;
+
 uint16_t diLepDiJetMetIdx = 0;
 uint16_t diLepDiJetIdx = 0;
 uint16_t diJetIdx = 0;
 uint16_t bJet1Idx = 0;
 uint16_t bJet2Idx = 0;
+uint16_t fwk_jet1Idx = 0;
+uint16_t fwk_jet2Idx = 0;
 uint16_t diLepIdx = 0;
 uint16_t lep1Idx = 0;
 uint16_t lep2Idx = 0;
@@ -54,24 +62,50 @@ const TTAnalysis::Lepton *lepton1, *lepton2;
 bool diLepton_isOS, diLepton_HLT;
 bool diLepton_Mll = false;
 bool diLepton_ZVeto = false;
+
+float sf_HLT = 1;
+float sf_diLepton = 1;
+float sf_diBJet = 1;
+
+TTbarSolution recoTTbar;
+bool recoTop_valid = false;
 """
 
 category_code = """
-bool cat{3}_pre = tt_{4}_Category_{0}_cut && tt_diLeptons_IDIso[{1}].size() == 1 && tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered[{2}].size() >= 1;
-bool cat{3} = false;
-if(cat{3}_pre){{
-    leplepIDIsoBB = {2};
+bool cat{catCap}_pre = tt_{catMin}_Category_{lepLepIDIsoStr}_cut && tt_diLeptons_IDIso[{lepLepIDIso}].size() == 1 && tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered[{lepLepIDIsoJetJetBWP}].size() >= 1;
+bool cat{catCap} = false;
+if(cat{catCap}_pre){{
+    leplepIDIsoBB = {lepLepIDIsoJetJetBWP};
     
-    if(tt_diLeptons[ tt_diLepDiJetsMet[diLepDiJetMetIdx].diLepIdx ].is{3}) {{
-        cat{3} = runOnMC || runOn{3};
+    if(tt_diLeptons[ tt_diLepDiJetsMet[diLepDiJetMetIdx].diLepIdx ].is{catCap}) {{
+        cat{catCap} = runOnMC || runOn{catCap};
         
-        leplepIDIso = {1};
+        leplepIDIso = {lepLepIDIso};
         
-        diLepDiJetMetIdx = tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered[leplepIDIsoBB][0];
+        recoTTbar = myReconstructor->getSolution(
+            tt_leptons,
+            tt_diLeptons,
+            tt_selJets,
+            tt_diJets,
+            tt_diLepDiJetsMet,
+            met_p4,
+            tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered[leplepIDIsoBB] 
+            );
+        recoTop_valid = recoTTbar.nSols > 0;
+        
+        if(recoTop_valid){{
+            chosenDiLepDiBJetsMet = recoTTbar.chosenDiLepDiBJetsMet;
+            diLepDiJetMetIdx = recoTTbar.diLepDiJetMetIdx;
+        }}else{{
+            diLepDiJetMetIdx = tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered[leplepIDIsoBB][0];
+        }}
+        
         diLepDiJetIdx = tt_diLepDiJetsMet[diLepDiJetMetIdx].diLepDiJetIdx;
         diJetIdx = tt_diLepDiJetsMet[diLepDiJetMetIdx].diJetIdx;
         bJet1Idx = tt_diJets[diJetIdx].jidxs.first;
         bJet2Idx = tt_diJets[diJetIdx].jidxs.second;        
+        fwk_jet1Idx = tt_diJets[diJetIdx].idxs.first;
+        fwk_jet2Idx = tt_diJets[diJetIdx].idxs.second;        
         diLepIdx = tt_diLepDiJetsMet[diLepDiJetMetIdx].diLepIdx;
         lep1Idx = tt_diLeptons[diLepIdx].lidxs.first;
         lep2Idx = tt_diLeptons[diLepIdx].lidxs.second;
@@ -85,41 +119,59 @@ if(cat{3}_pre){{
         lepton1 = &tt_leptons[lep1Idx];
         lepton2 = &tt_leptons[lep2Idx];
         
-        diLepton_isOS = tt_{4}_DiLeptonIsOS_{0}_cut;
-        diLepton_HLT = tt_{4}_DiLeptonTriggerMatch_{0}_cut;
-        diLepton_Mll = tt_{4}_Mll_{0}_cut;
-        diLepton_ZVeto = tt_{4}_MllZVeto_{0}_cut;
+        diLepton_isOS = tt_{catMin}_DiLeptonIsOS_{lepLepIDIsoStr}_cut;
+        diLepton_HLT = tt_{catMin}_DiLeptonTriggerMatch_{lepLepIDIsoStr}_cut;
+        diLepton_Mll = tt_{catMin}_Mll_{lepLepIDIsoStr}_cut;
+        diLepton_ZVeto = tt_{catMin}_MllZVeto_{lepLepIDIsoStr}_cut;
+
+        sf_HLT = {sf_HLT};
+        sf_diLepton = {sf_diLepton};
+        sf_diBJet = {sf_diBJet};
     }}
 }}
 """
 
-code_in_loop += category_code.format(
-        TT.LepLepIDIsoStr(elID, elIso, elID, elIso),
-        TT.LepLepIDIso(elID, elIso, elID, elIso),
-        TT.LepLepIDIsoJetJetBWP(elID, elIso, elID, elIso, bTag, bTag),
-        "ElEl", "elel"
-    )
+category_map = [
+        {
+            "lepLepIDIsoStr": TT.LepLepIDIsoStr(elID, elIso, elID, elIso),
+            "lepLepIDIso": TT.LepLepIDIso(elID, elIso, elID, elIso),
+            "lepLepIDIsoJetJetBWP":  TT.LepLepIDIsoJetJetBWP(elID, elIso, elID, elIso, bTag1, bTag2),
+            "catCap": "ElEl", "catMin": "elel",
+            "sf_HLT": SF.get_HLT_SF_for_dilepton(0, elID, elID, elIso, elIso),
+            "sf_diLepton": SF.get_leptons_SF_for_dilepton(0, elID, elID, elIso, elIso),
+            "sf_diBJet": SF.get_at_least_two_b_SF_for_dijet("chosenDiLepDiBJetsMet", bTag1, bTag2, elID, elID, elIso, elIso),
+        },
+        {
+            "lepLepIDIsoStr": TT.LepLepIDIsoStr(elID, elIso, muID, muIso),
+            "lepLepIDIso": TT.LepLepIDIso(elID, elIso, muID, muIso),
+            "lepLepIDIsoJetJetBWP":  TT.LepLepIDIsoJetJetBWP(elID, elIso, muID, muIso, bTag1, bTag2),
+            "catCap": "ElMu", "catMin": "elmu",
+            "sf_HLT": SF.get_HLT_SF_for_dilepton(0, elID, muID, elIso, muIso),
+            "sf_diLepton": SF.get_leptons_SF_for_dilepton(0, elID, muID, elIso, muIso),
+            "sf_diBJet": SF.get_at_least_two_b_SF_for_dijet("chosenDiLepDiBJetsMet", bTag1, bTag2, elID, muID, elIso, muIso),
+        },
+        {
+            "lepLepIDIsoStr": TT.LepLepIDIsoStr(muID, muIso, elID, elIso),
+            "lepLepIDIso": TT.LepLepIDIso(muID, muIso, elID, elIso),
+            "lepLepIDIsoJetJetBWP": TT.LepLepIDIsoJetJetBWP(muID, muIso, elID, elIso, bTag1, bTag2),
+            "catCap": "MuEl", "catMin": "muel",
+            "sf_HLT": SF.get_HLT_SF_for_dilepton(0, muID, elID, muIso, elIso),
+            "sf_diLepton": SF.get_leptons_SF_for_dilepton(0, muID, elID, muIso, elIso),
+            "sf_diBJet": SF.get_at_least_two_b_SF_for_dijet("chosenDiLepDiBJetsMet", bTag1, bTag2, muID, elID, muIso, elIso),
+        },
+        {
+            "lepLepIDIsoStr": TT.LepLepIDIsoStr(muID, muIso, muID, muIso),
+            "lepLepIDIso": TT.LepLepIDIso(muID, muIso, muID, muIso),
+            "lepLepIDIsoJetJetBWP": TT.LepLepIDIsoJetJetBWP(muID, muIso, muID, muIso, bTag1, bTag2),
+            "catCap": "MuMu", "catMin": "mumu",
+            "sf_HLT": SF.get_HLT_SF_for_dilepton(0, muID, muID, muIso, muIso),
+            "sf_diLepton": SF.get_leptons_SF_for_dilepton(0, muID, muID, muIso, muIso),
+            "sf_diBJet": SF.get_at_least_two_b_SF_for_dijet("chosenDiLepDiBJetsMet", bTag1, bTag2, muID, muID, muIso, muIso),
+        },
+    ]
 
-code_in_loop += category_code.format(
-        TT.LepLepIDIsoStr(elID, elIso, muID, muIso),
-        TT.LepLepIDIso(elID, elIso, muID, muIso),
-        TT.LepLepIDIsoJetJetBWP(elID, elIso, muID, muIso, bTag, bTag),
-        "ElMu", "elmu"
-    )
-
-code_in_loop += category_code.format(
-        TT.LepLepIDIsoStr(muID, muIso, elID, elIso),
-        TT.LepLepIDIso(muID, muIso, elID, elIso),
-        TT.LepLepIDIsoJetJetBWP(muID, muIso, elID, elIso, bTag, bTag),
-        "MuEl", "muel"
-    )
-
-code_in_loop += category_code.format(
-        TT.LepLepIDIsoStr(muID, muIso, muID, muIso),
-        TT.LepLepIDIso(muID, muIso, muID, muIso),
-        TT.LepLepIDIsoJetJetBWP(muID, muIso, muID, muIso, bTag, bTag),
-        "MuMu", "mumu"
-    )
+for categ in category_map:
+    code_in_loop += category_code.format(**categ)
 
 code_in_loop += """
 if(catElMu || catMuEl) diLepton_ZVeto = true;
@@ -127,7 +179,11 @@ if(catElEl + catElMu + catMuEl + catElEl != 1) continue;
 """
 
 # The branches needed above will most likely not be used for the skimmer's branches => we have to add them all ourselves
-extra_branches += ["tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered", "tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered", "tt_diLepDiJetsMet", "tt_diLepDiJets", "tt_diJets", "tt_diLeptons", "tt_selJets", "tt_leptons"]
+extra_branches += ["tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered", "tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered", "tt_diLepDiJetsMet", "tt_diLepDiJets", "tt_diJets", "tt_diLeptons", "tt_diLeptons_IDIso", "tt_selJets", "tt_leptons"]
+
+extra_branches += [SF.get_csvv2_sf_branch(bTag1), SF.get_csvv2_sf_branch(bTag2), SF.get_electron_id_sf_branch(elID), SF.get_muon_id_sf_branch(muID), SF.get_muon_iso_sf_branch(muIso, muID)]
+# needed because of the way the el/mu SFs are called (not actually used:)
+extra_branches += [SF.get_electron_id_sf_branch(muID), SF.get_muon_id_sf_branch(elID), SF.get_muon_iso_sf_branch(elIso, elID)]
 
 extra_branches_categs_base = ["tt_{0}_Category_{1}_cut", "tt_{0}_DiLeptonIsOS_{1}_cut", "tt_{0}_DiLeptonTriggerMatch_{1}_cut", "tt_{0}_Mll_{1}_cut", "tt_{0}_MllZVeto_{1}_cut"]
 
@@ -139,44 +195,56 @@ for branch in extra_branches_categs_base:
 
 #### Include source file with the HLT SFs ####
 
-includes = ["../common/HLT_SF.h", "../common/TTbarReconstruction/SmearingFunction.h", "../common/TTbarReconstruction/TTbarReconstructor.h"]
+includes = ["../common/HLT_SF.h"]
+includes += ["../common/TTbarReconstruction/recommendedSmearing/SmearingFunction.h", "../common/TTbarReconstruction/recommendedSmearing/TTbarReconstructor.h"]
 sources = [pathTT + "/src/NeutrinosSolver.cc"]
 
 #### TTbar system reconstruction ####
 
 code_before_loop += """
+TFile* fileGenBJets = TFile::Open("/home/fynu/swertz/scratch/CMSSW_7_6_3_patch2/src/cp3_llbb/TTTools/histFactory/transferFunctions/160331_withCorrelations_0/genInfo_smearingTFs_bJets.root");
+TFile* fileLeptons = TFile::Open("/home/fynu/swertz/scratch/CMSSW_7_6_3_patch2/src/cp3_llbb/TTTools/histFactory/transferFunctions/160331_withCorrelations_0/smearingTFs_leptons.root");
+
 DiracDelta topMass(172.5);
-//BreitWigner wMass(80.4, 2.0, 2);
-DiracDelta wMass(80.4);
+Binned1DTransferFunction wMass("gen_MW", fileGenBJets);
+//DiracDelta wMass(80.4);
+
 //DiracDelta bJetTF;
-//SimpleGaussianOnEnergy bJetTF(0, 0.1, 2);
-TFile* tfFile = TFile::Open("/home/fynu/swertz/scratch/CMSSW_7_6_3_patch2/src/cp3_llbb/TTTools/histFactory/transferFunctions/tf_beforeFSR_allLoose.root");
-Binned2DTransferFunction bJetTF("bJet_bParton_DeltaEvsE_Norm", tfFile);
-DiracDelta leptonDelta;
+
+Binned1DTransferFunctionOnEnergyRatio bJetEnergyTF("EgenOverEreco_bJet", fileGenBJets);
+Binned1DTransferFunctionOnAngle bJetAngleTF("Angle_bJet", fileGenBJets);
+
+//DiracDelta leptonDelta;
+
+Binned1DTransferFunctionOnEnergyRatio electronEnergyTF("EgenOverEreco_electron", fileLeptons);
+Binned1DTransferFunctionOnAngle electronAngleTF("Angle_electron", fileLeptons);
+
+Binned1DTransferFunctionOnEnergyRatio muonEnergyTF("EgenOverEreco_muon", fileLeptons);
+Binned1DTransferFunctionOnAngle muonAngleTF("Angle_muon", fileLeptons);
+
+Binned1DTransferFunction MblSmearing("gen_Mbl", fileGenBJets);
 
 TTbarReconstructor *myReconstructor = new TTbarReconstructor(
-                    leptonDelta,
-                    leptonDelta,
-                    bJetTF,
+                    electronEnergyTF,
+                    electronAngleTF,
+                    muonEnergyTF,
+                    muonAngleTF,
+                    bJetEnergyTF,
+                    bJetAngleTF,
                     wMass,
                     topMass,
-                    1000);
+                    MblSmearing,
+                    100);
 """
 
 code_in_loop += """
-TTbarSolution recoTTbar = myReconstructor->getSolution(
-  lepton1->p4, lepton2->p4,
-  bJet1->p4, bJet2->p4,
-  met_p4,
-  catElEl, catElMu, catMuEl, catMuMu,
-  lepton1->charge);
 """
 
-code_after_loop += "delete myReconstructor; tfFile->Close();"
+code_after_loop += "delete myReconstructor; fileGenBJets->Close(); fileLeptons->Close();"
 
 #### Branches needed for TT reconstruction: just in case they're not already included
 
-extra_branches += ["tt_leptons", "tt_diLeptons", "tt_diLeptons_IDIso", "tt_selJets", "tt_diJets", "tt_diLepDiJets", "tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered", "met_p4"]
+extra_branches += ["tt_leptons", "tt_diLeptons", "tt_selJets", "tt_diJets", "tt_diLepDiJetsMet", "met_p4", "tt_diLepDiBJetsMet_DRCut_BWP_CSVv2Ordered"]
 
 #### Finally, configure the tree's branches
 #### We don't need a global cut since we've taken care of it ourselves above

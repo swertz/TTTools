@@ -73,7 +73,7 @@ def get_leptons_SF_for_dilepton(dilepton_index, id1, id2, iso1, iso2):
 # b-tagging scale factors
 
 def get_dijet_object(dijet_index, b1_wp, b2_wp, id1, id2, iso1, iso2):
-    return 'tt_diJets[tt_diLepDiJets[tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[%d][%d]].diJetIdx]' % (TT.LepLepIDIsoJetJetBWP(id1, iso1, id2, iso2, b1_wp, b2_wp), dijet_index)
+    return 'tt_diJets[tt_diLepDiJets[tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[{0}][{1}]].diJetIdx]'.format(TT.LepLepIDIsoJetJetBWP(id1, iso1, id2, iso2, b1_wp, b2_wp), dijet_index)
 
 def get_at_least_two_b_SF_one_b_for_dijet(b_index, dijet_index, b1_wp, b2_wp, id1, id2, iso1, iso2):
     if noScaleFactors:

@@ -129,10 +129,22 @@ genInfo = [
             'binning': (100, -4, 4)
         },
         {
+            'name': 'gen_TT_DEta_BeforeFSR_CAT_#CAT_TITLE#',
+            'variable': 'std::abs(tt_gen_ttbar_beforeFSR_p4.Eta()-tt_gen_ttbar_beforeFSR_p4.Eta())',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'gen_isSignal'),
+            'binning': (100, 0, 8)
+        },
+        {
             'name': 'gen_TT_Rapidity_BeforeFSR_CAT_#CAT_TITLE#',
             'variable': 'tt_gen_ttbar_beforeFSR_p4.Rapidity()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'gen_isSignal'),
             'binning': (100, -6, 6)
+        },
+        {
+            'name': 'gen_TT_DeltaRapidity_BeforeFSR_CAT_#CAT_TITLE#',
+            'variable': 'std::abs(tt_gen_ttbar_beforeFSR_p4.Rapidity()-tt_gen_ttbar_beforeFSR_p4.Rapidity())',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'gen_isSignal'),
+            'binning': (100, 0, 4)
         },
         {
             'name': 'gen_TT_Mbl_vs_Mbl_CAT_#CAT_TITLE#',
@@ -925,7 +937,7 @@ llbb_recoTop = [
             'name': 'llbbMet_TT_M_CAT_#CAT_TITLE#',
             'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0'),
-            'binning': (20, 250, 3000)
+            'binning': (20, 250, 2500)
         },
         { 
             'name': 'llbbMet_TT_Pt_CAT_#CAT_TITLE#',
@@ -1006,7 +1018,7 @@ llbb_recoTop = [
             'name': 'llbbMet_TT_M_resolution_beforeFSR_CAT_#CAT_TITLE#',
             'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M()) / tt_gen_ttbar_beforeFSR_p4.M() ' ,
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-            'binning': (200, -10, 10)
+            'binning': (100, -2, 4)
         },
         { 
             'name': 'llbbMet_TT_M_minus_Mgen_beforeFSR_CAT_#CAT_TITLE#',
@@ -1018,13 +1030,13 @@ llbb_recoTop = [
             'name': 'llbbMet_TT_M_minus_Mgen_vs_Mgen_beforeFSR_CAT_#CAT_TITLE#',
             'variable': 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M() ::: tt_gen_ttbar_beforeFSR_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-            'binning': (100, -1000, 1000, 100, 250, 3000)
+            'binning': (100, -1000, 1000, 100, 250, 2500)
         },
         { 
             'name': 'llbbMet_TT_M_Resolution_vs_Mgen_beforeFSR_CAT_#CAT_TITLE#',
             'variable': '(tt_ttbar[#LEPLEP_IDISO_BBWP#][0][0].p4.M() - tt_gen_ttbar_beforeFSR_p4.M())/tt_gen_ttbar_beforeFSR_p4.M() ::: tt_gen_ttbar_beforeFSR_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-            'binning': (100, -1000, 1000, 100, 250, 3000)
+            'binning': (100, -2, 4, 100, 250, 2500)
         },
         #{ 
         #    'name': 'llbbMet_TT_M_resolution_CAT_#CAT_TITLE#',
@@ -1043,69 +1055,81 @@ llbb_recoTop = [
         # TT
         {
             'name': 'llbbMet_RecoTop_TT_M_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_m',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
-            'binning': (20, 250, 3000)
+            'binning': (20, 250, 2500)
         },
         {
             'name': 'llbbMet_RecoTop_TT_Pt_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_pt',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.Pt()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, 0, 500)
         },
         {
             'name': 'llbbMet_RecoTop_TT_Eta_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_eta',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.Eta()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, -5, 5)
         },
         {
+            'name': 'llbbMet_RecoTop_TT_DEta_CAT_#CAT_TITLE#',
+            'variable': 'std::abs(recoTTbar[#RECOTTBAR_INDEX#].t_p4.Eta()-recoTTbar[#RECOTTBAR_INDEX#].tbar_p4.Eta())',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (20, 0, 7)
+        },
+        {
             'name': 'llbbMet_RecoTop_TT_Rapidity_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_y',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.Rapidity()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, -3, 3)
         },
         {
+            'name': 'llbbMet_RecoTop_TT_DeltaRapidity_CAT_#CAT_TITLE#',
+            'variable': 'std::abs(recoTTbar[#RECOTTBAR_INDEX#].t_p4.Rapidity()-recoTTbar[#RECOTTBAR_INDEX#].t_p4.Rapidity())',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (20, 0, 4)
+        },
+        {
             'name': 'llbbMet_RecoTop_TT_DR_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_DR',
+            'variable': 'ROOT::Math::VectorUtil::DeltaR(recoTTbar[#RECOTTBAR_INDEX#].t_p4, recoTTbar[#RECOTTBAR_INDEX#].tbar_p4)',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, 0, 6)
         },
         # Top
         {
             'name': 'llbbMet_RecoTop_Top_Pt_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].t_pt',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].t_p4.Pt()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, 0, 500)
         },
         {
             'name': 'llbbMet_RecoTop_Top_Eta_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].t_eta',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].t_p4.Eta()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, -5, 5)
         },
         {
             'name': 'llbbMet_RecoTop_Top_Rapidity_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].t_y',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].t_p4.Rapidity()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, -3, 3)
         },
         # AntiTop
         {
             'name': 'llbbMet_RecoTop_AntiTop_Pt_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].tbar_pt',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].tbar_p4.Pt()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, 0, 500)
         },
         {
             'name': 'llbbMet_RecoTop_AntiTop_Eta_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].tbar_eta',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].tbar_p4.Eta()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, -5, 5)
         },
         {
             'name': 'llbbMet_RecoTop_AntiTop_Rapidity_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].tbar_y',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].tbar_p4.Rapidity()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
             'binning': (20, -3, 3)
         },
@@ -1114,37 +1138,43 @@ llbb_recoTop = [
             'name': 'llbbMet_RecoTop_nSols_CAT_#CAT_TITLE#',
             'variable': 'recoTTbar[#RECOTTBAR_INDEX#].nSols',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
-            'binning': (500, 0, 1000)
+            'binning': (101, 0, 101)
+        },
+        {
+            'name': 'llbbMet_RecoTop_totWeight_CAT_#CAT_TITLE#',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].weight',
+            'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#'),
+            'binning': (50, 0, 0.015)
         },
         {
             'name': 'llbbMet_minDRbl_vs_gen_TT_M_CAT_#CAT_TITLE#',
             'variable': 'tt_diLepDiJets[ tt_diLepDiBJets_DRCut_BWP_CSVv2Ordered[#LEPLEP_IDISO_BBWP#][0] ].minDRjl ::: tt_gen_ttbar_beforeFSR_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'gen_isSignal'),
-            'binning': (50, 0, 6, 50, 250, 3000)
+            'binning': (50, 0, 6, 50, 250, 2500)
         },
         # Resolution
         {
             'name': 'llbbMet_RecoTop_TT_M_Resolution_CAT_#CAT_TITLE#',
-            'variable': '(recoTTbar[#RECOTTBAR_INDEX#].ttbar_m - tt_gen_ttbar_beforeFSR_p4.M()) / tt_gen_ttbar_beforeFSR_p4.M()',
+            'variable': '(recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.M() - tt_gen_ttbar_beforeFSR_p4.M()) / tt_gen_ttbar_beforeFSR_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-            'binning': (200, -10, 10)
+            'binning': (100, -2, 4)
         },
         {
             'name': 'llbbMet_RecoTop_TT_M_minus_Mgen_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_m - tt_gen_ttbar_beforeFSR_p4.M()',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.M() - tt_gen_ttbar_beforeFSR_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
             'binning': (100, -1000, 1000)
         },
         {
             'name': 'llbbMet_RecoTop_TT_M_minus_Mgen_vs_Mgen_CAT_#CAT_TITLE#',
-            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_m - tt_gen_ttbar_beforeFSR_p4.M() ::: tt_gen_ttbar_beforeFSR_p4.M()',
+            'variable': 'recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.M() - tt_gen_ttbar_beforeFSR_p4.M() ::: tt_gen_ttbar_beforeFSR_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-            'binning': (100, -1000, 1000, 100, 250, 3000)
+            'binning': (100, -1000, 1000, 100, 250, 2500)
         },
         {
             'name': 'llbbMet_RecoTop_TT_M_Resolution_vs_Mgen_CAT_#CAT_TITLE#',
-            'variable': '(recoTTbar[#RECOTTBAR_INDEX#].ttbar_m - tt_gen_ttbar_beforeFSR_p4.M())/tt_gen_ttbar_beforeFSR_p4.M() ::: tt_gen_ttbar_beforeFSR_p4.M()',
+            'variable': '(recoTTbar[#RECOTTBAR_INDEX#].ttbar_p4.M() - tt_gen_ttbar_beforeFSR_p4.M())/tt_gen_ttbar_beforeFSR_p4.M() ::: tt_gen_ttbar_beforeFSR_p4.M()',
             'plot_cut': joinCuts('#LEPLEP_CAT_CUTS#', '#JET_CAT_CUTS#', 'tt_ttbar[#LEPLEP_IDISO_BBWP#][0].size() > 0', 'tt_gen_ttbar_decay_type > 0'),
-            'binning': (100, -10, 10, 100, 250, 3000)
+            'binning': (100, -2, 4, 100, 250, 2500)
         },
     ]

@@ -43,6 +43,30 @@ tree = {
                 "variable": "diLepton_HLT",
                 "type": "bool"
             },
+            {
+                "name": "event_weight",
+                "variable": "event_weight*event_pu_weight",
+            },
+            {
+                "name": "sf_HLT",
+                "variable": "sf_HLT",
+            },
+            {
+                "name": "sf_leptons",
+                "variable": "sf_diLepton",
+            },
+            {
+                "name": "sf_bJets",
+                "variable": "sf_diBJet",
+            },
+            {
+                "name": "sf_comb",
+                "variable": "sf_HLT*sf_diLepton*sf_diBJet",
+            },
+            {
+                "name": "event_all",
+                "variable": "event_weight * event_pu_weight * sf_HLT*sf_diLepton*sf_diBJet * ((diLepton_isOS && diLepton_Mll && diLepton_HLT) ? 1 : 0)",
+            },
             ## Leptons
             {
                 "name": "lep1_p4",
@@ -90,6 +114,11 @@ tree = {
                 "variable": "bJet1->CSVv2",
             },
             {
+                "name": "bJet1_hadronFlavor",
+                "variable": "jet_hadronFlavor[fwk_jed1Idx]",
+                "type": "int16_t",
+            },
+            {
                 "name": "bJet2_p4",
                 "variable": "bJet2->p4",
                 "type": "myLorentzVector"
@@ -97,6 +126,11 @@ tree = {
             {
                 "name": "bJet2_CSVv2",
                 "variable": "bJet2->CSVv2",
+            },
+            {
+                "name": "bJet2_hadronFlavor",
+                "variable": "jet_hadronFlavor[fwk_jed2Idx]",
+                "type": "int16_t",
             },
             {
                 "name": "bb_p4",
@@ -256,7 +290,7 @@ tree = {
             },
             {
                 "name": "gen_Mbl_T_p4",
-                "variable": "(tt_gen_lepton_tbar_beforeFSR >= 0 && tt_gen_b_beforeFSR >= 0 ) ? (tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4 + tt_genParticles[tt_gen_b_beforeFSR].p4).M() : -1",
+                "variable": "(tt_gen_lepton_t_beforeFSR >= 0 && tt_gen_b_beforeFSR >= 0 ) ? (tt_genParticles[tt_gen_lepton_t_beforeFSR].p4 + tt_genParticles[tt_gen_b_beforeFSR].p4).M() : -1",
             },
             {
                 "name": "gen_DR_lepton_b",
@@ -284,8 +318,8 @@ tree = {
                 "type": "myLorentzVector"
             },
             {
-                "name": "gen_Mbl_T_p4",
-                "variable": "(tt_gen_lepton_tbar_beforeFSR >= 0 && tt_gen_b_beforeFSR >= 0 ) ? (tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4 + tt_genParticles[tt_gen_b_beforeFSR].p4).M() : -1",
+                "name": "gen_Mbl_Tbar_p4",
+                "variable": "(tt_gen_lepton_tbar_beforeFSR >= 0 && tt_gen_bbar_beforeFSR >= 0 ) ? (tt_genParticles[tt_gen_lepton_tbar_beforeFSR].p4 + tt_genParticles[tt_gen_bbar_beforeFSR].p4).M() : -1",
             },
             {
                 "name": "gen_DR_lepton_bbar",
@@ -321,82 +355,55 @@ tree = {
                 "variable": "tt_ttbar[leplepIDIsoBB][0].size() ? std::abs(tt_ttbar[leplepIDIsoBB][0][0].DPhi_tt) : -1",
             },
             {
-                "name": "simpleRecoTop_isValid",
+                "name": "simpleRecoTop_valid",
                 "variable": "tt_ttbar[leplepIDIsoBB][0].size() > 0",
                 "type": "bool"
             },
             ## Full reco TTbar
             {
-                "name": "recoTop_T_pt",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.t_pt : -1",
+                "name": "recoTop_T_p4",
+                "variable": "recoTTbar.nSols > 0 ? recoTTbar.t_p4 : myLorentzVector()",
+                "type": "myLorentzVector"
             },
             {
-                "name": "recoTop_T_eta",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.t_eta : -10",
+                "name": "recoTop_Tbar_p4",
+                "variable": "recoTTbar.nSols > 0 ? recoTTbar.tbar_p4 : myLorentzVector()",
+                "type": "myLorentzVector"
             },
             {
-                "name": "recoTop_T_phi",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.t_phi : -10",
-            },
-            {
-                "name": "recoTop_T_y",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.t_y : -10",
-            },
-            {
-                "name": "recoTop_Tbar_pt",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.tbar_pt : -1",
-            },
-            {
-                "name": "recoTop_Tbar_eta",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.tbar_eta : -10",
-            },
-            {
-                "name": "recoTop_Tbar_phi",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.tbar_phi : -10",
-            },
-            {
-                "name": "recoTop_Tbar_y",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.tbar_y : -10",
-            },
-            {
-                "name": "recoTop_TT_m",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_m : -1",
-            },
-            {
-                "name": "recoTop_TT_pt",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_pt : -1",
-            },
-            {
-                "name": "recoTop_TT_eta",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_eta : -10",
-            },
-            {
-                "name": "recoTop_TT_phi",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_phi : -10",
-            },
-            {
-                "name": "recoTop_TT_y",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_y : -10",
+                "name": "recoTop_TT_p4",
+                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_p4 : myLorentzVector()",
+                "type": "myLorentzVector"
             },
             {
                 "name": "recoTop_TT_DR",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_DR : -1",
+                "variable": "recoTTbar.nSols > 0 ? ROOT::Math::VectorUtil::DeltaR(recoTTbar.t_p4, recoTTbar.tbar_p4) : -1",
             },
             {
                 "name": "recoTop_TT_DEta",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_DEta : -1",
+                "variable": "recoTTbar.nSols > 0 ? TTAnalysis::DeltaEta(recoTTbar.t_p4, recoTTbar.tbar_p4) : -1",
             },
             {
                 "name": "recoTop_TT_DPhi",
-                "variable": "recoTTbar.nSols > 0 ? recoTTbar.ttbar_DPhi : -1",
+                "variable": "recoTTbar.nSols > 0 ? std::abs(ROOT::Math::VectorUtil::DeltaPhi(recoTTbar.t_p4, recoTTbar.tbar_p4)) : -1",
             },
             {
                 "name": "recoTop_nSols",
                 "variable": "recoTTbar.nSols",
             },
             {
-                "name": "recoTop_sumW",
-                "variable": "recoTTbar.sumW",
+                "name": "recoTop_weight",
+                "variable": "recoTTbar.weight",
+            },
+            {
+                "name": "recoTop_valid",
+                "variable": "recoTop_valid",
+                "type": "bool",
+            },
+            {
+                "name": "recoTop_chosenOrdered",
+                "variable": "chosenDiLepDiBJetsMet",
+                "type": "uint16_t",
             },
         ],
     }

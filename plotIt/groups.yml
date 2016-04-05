@@ -22,7 +22,7 @@
   legend-order: 5
 
 'ST':
-  legend: 'Single Top & tW'
+  legend: 'Single Top, tW'
   fill-color: '#C02942'
   legend-order: 3
 

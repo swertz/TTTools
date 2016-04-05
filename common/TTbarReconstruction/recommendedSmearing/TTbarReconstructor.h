@@ -27,7 +27,7 @@ float TTAnalysis::DeltaEta(const myLorentzVector& v1, const myLorentzVector& v2)
 
 void fixMass(myLorentzVector& v, const double mass){
   const double pRatio = sqrt(pow(v.E(), 2) - pow(mass, 2))/v.P();
-  v.SetPtEtaPhiE(v.Pt()*pRatio, v.Eta(), v.Phi(), v.E());
+  v.SetCoordinates(v.Pt()*pRatio, v.Eta(), v.Phi(), v.E());
 }
 
 class TTbarSolution {
@@ -37,7 +37,7 @@ class TTbarSolution {
       t_px(0), t_py(0), t_pz(0),
       tbar_px(0), tbar_py(0), tbar_pz(0),
       nSols(0), weight(0), 
-      diLepDiJetMetIdx(0), 
+      chosenDiLepDiBJetsMet(0), diLepDiJetMetIdx(0), 
       diLepIdx(0), leptonTIdx(0), leptonTbarIdx(0),
       diJetIdx(0), jetTIdx(0), jetTbarIdx(0)
       {}
@@ -48,7 +48,7 @@ class TTbarSolution {
       t_px(t_px), t_py(t_py), t_pz(t_pz),
       tbar_px(tbar_px), tbar_py(tbar_py), tbar_pz(tbar_pz),
       nSols(0), weight(0), 
-      diLepDiJetMetIdx(0), 
+      chosenDiLepDiBJetsMet(0), diLepDiJetMetIdx(0), 
       diLepIdx(0), leptonTIdx(0), leptonTbarIdx(0),
       diJetIdx(0), jetTIdx(0), jetTbarIdx(0)
       {}
@@ -57,7 +57,7 @@ class TTbarSolution {
       t_px(tt.top1_p4.Px()), t_py(tt.top1_p4.Py()), t_pz(tt.top1_p4.Pz()),
       tbar_px(tt.top2_p4.Px()), tbar_py(tt.top2_p4.Py()), tbar_pz(tt.top2_p4.Pz()),
       nSols(1), weight(0), 
-      diLepDiJetMetIdx(0), 
+      chosenDiLepDiBJetsMet(0), diLepDiJetMetIdx(0), 
       diLepIdx(0), leptonTIdx(0), leptonTbarIdx(0),
       diJetIdx(0), jetTIdx(0), jetTbarIdx(0)
       {}
@@ -67,7 +67,6 @@ class TTbarSolution {
     TTbarSolution& operator+=(const TTbarSolution& sol){
       t_px += sol.t_px; t_py += sol.t_py; t_pz += sol.t_pz;
       tbar_px += sol.tbar_px; tbar_py += sol.tbar_py; tbar_pz += sol.tbar_pz;
-      nSols += sol.nSols;
       return *this;
     }
 
@@ -86,11 +85,11 @@ class TTbarSolution {
 
     TTbarSolution& BuildTopLorentzVectors(const double t_mass=172.5){
       const double t_E = sqrt( pow(t_mass, 2) + pow(t_px, 2) + pow(t_py, 2) + pow(t_pz, 2) );
-      p4_t.SetPxPyPzE(t_px, t_py, t_pz, t_E);
+      t_p4.SetPxPyPzE(t_px, t_py, t_pz, t_E);
     
-      const double tbar_E = sqrt( pow(tbar_mass, 2) + pow(tbar_px, 2) + pow(tbar_py, 2) + pow(tbar_pz, 2) );
-      p4_tbar.SetPxPyPzE(tbar_px, tbar_py, tbar_pz, tbar_E);
-      p4_ttbar = p4_t + p4_tbar;
+      const double tbar_E = sqrt( pow(t_mass, 2) + pow(tbar_px, 2) + pow(tbar_py, 2) + pow(tbar_pz, 2) );
+      tbar_p4.SetPxPyPzE(tbar_px, tbar_py, tbar_pz, tbar_E);
+      ttbar_p4 = t_p4 + tbar_p4;
       return *this;
     }
     
@@ -99,7 +98,8 @@ class TTbarSolution {
     uint32_t nSols;
     double weight;
 
-    LorentzVector p4_t, p4_tbar, p4_ttbar;
+    myLorentzVector t_p4, tbar_p4, ttbar_p4;
+    uint16_t chosenDiLepDiBJetsMet;
     uint16_t diLepDiJetMetIdx, diLepIdx, leptonTIdx, leptonTbarIdx, diJetIdx, jetTIdx, jetTbarIdx;
 };
 
@@ -119,30 +119,35 @@ class TTbarReconstructor {
         SmearingFunction& MlbWeighting, 
         uint32_t nTries
         ):
-      muonSmearing(muonSmearing),
-      electronSmearing(electronSmearing),
-      bJetSmearing(bJetSmearing),
+      electronEnergySmearing(electronEnergySmearing),
+      electronAngleSmearing(electronAngleSmearing),
+      muonEnergySmearing(muonEnergySmearing),
+      muonAngleSmearing(muonAngleSmearing),
+      bJetEnergySmearing(bJetEnergySmearing),
+      bJetAngleSmearing(bJetAngleSmearing),
       WSmearing(WSmearing),
       TopSmearing(TopSmearing),
+      MlbWeighting(MlbWeighting),
       nTries(nTries)
       {}
 
     TTbarSolution getSolution(
-        std::vector<TTAnalysis::Lepton>& _leptons,
-        std::vector<TTAnalysis::DiLepton>& _diLeptons,
-        std::vector<TTAnalysis::Jet>& _jets,
-        std::vector<TTAnalysis::DiJet>& _diJets,
-        std::vector<TTAnalysis::DiLepDiJetMet>& _diLepDiJetsMet,
-        myLorentzVector& met_p4
-        std::vector<uint16_t>& selObj_CSVv2Ordered){
+        const std::vector<TTAnalysis::Lepton>& _leptons,
+        const std::vector<TTAnalysis::DiLepton>& _diLeptons,
+        const std::vector<TTAnalysis::Jet>& _jets,
+        const std::vector<TTAnalysis::DiJet>& _diJets,
+        const std::vector<TTAnalysis::DiLepDiJetMet>& _diLepDiJetsMet,
+        const myLorentzVector& met_p4,
+        const std::vector<uint16_t>& selObj_CSVv2Ordered){
 
 #ifdef RECO_DEBUG
-        std::cout << "\nStarting event\n";
+        std::cout << "\n\nStarting event\n";
 #endif
 
       // Use a lambda to handle more easily the b-jet permutations
-      auto doSmearing = [&](const uint16_t idx, const bool switchBJets) {
+      auto doSmearing = [&](const uint16_t i, const bool switchBJets) -> TTbarSolution {
 
+        const uint16_t idx = selObj_CSVv2Ordered[i];
         const TTAnalysis::DiLepDiJetMet& _thisObj = _diLepDiJetsMet[idx];
         const bool isElEl = _diLeptons[ _thisObj.diLepIdx ].isElEl;
         const bool isElMu = _diLeptons[ _thisObj.diLepIdx ].isElMu;
@@ -169,33 +174,33 @@ class TTbarReconstructor {
           TopSmearing.Evaluate(new_tbar_mass, true); 
 
 #ifdef RECO_DEBUG
-        std::cout << "W+/top masses: " << new_wplus_mass << "/" << new_t_mass << std::endl;
-        std::cout << "W-/anti-top masses: " << new_wminus_mass << "/" << new_tbar_mass << std::endl;
+          std::cout << "W+/top masses: " << new_wplus_mass << "/" << new_t_mass << std::endl;
+          std::cout << "W-/anti-top masses: " << new_wminus_mass << "/" << new_tbar_mass << std::endl;
 #endif
 
           myLorentzVector gen_lepton1_p4, gen_lepton2_p4, gen_bjet1_p4, gen_bjet2_p4;
           
           if(isElEl || isElMu){
             electronEnergySmearing.Evaluate(lepton1_p4, gen_lepton1_p4);
-            electronAngleSmearing.Evaluate(lepton1_p4, gen_lepton1_p4);
+            electronAngleSmearing.Evaluate(gen_lepton1_p4, gen_lepton1_p4);
           }
           if(isMuEl || isMuMu){
             muonEnergySmearing.Evaluate(lepton1_p4, gen_lepton1_p4);
-            muonAngleSmearing.Evaluate(lepton1_p4, gen_lepton1_p4);
+            muonAngleSmearing.Evaluate(gen_lepton1_p4, gen_lepton1_p4);
           }
           if(isElEl || isMuEl){
             electronEnergySmearing.Evaluate(lepton2_p4, gen_lepton2_p4);
-            electronAngleSmearing.Evaluate(lepton2_p4, gen_lepton2_p4);
+            electronAngleSmearing.Evaluate(gen_lepton2_p4, gen_lepton2_p4);
           }
           if(isElMu || isMuMu){
             muonEnergySmearing.Evaluate(lepton2_p4, gen_lepton2_p4);
-            muonAngleSmearing.Evaluate(lepton2_p4, gen_lepton2_p4);
+            muonAngleSmearing.Evaluate(gen_lepton2_p4, gen_lepton2_p4);
           }
           
           bJetEnergySmearing.Evaluate(bjet1_p4, gen_bjet1_p4);
           bJetEnergySmearing.Evaluate(bjet2_p4, gen_bjet2_p4);
-          bJetAngleSmearing.Evaluate(bjet1_p4, gen_bjet1_p4);
-          bJetAngleSmearing.Evaluate(bjet2_p4, gen_bjet2_p4);
+          bJetAngleSmearing.Evaluate(gen_bjet1_p4, gen_bjet1_p4);
+          bJetAngleSmearing.Evaluate(gen_bjet2_p4, gen_bjet2_p4);
 
           // Fix the lepton & b-quark mass to what we know they are
           fixMass(lepton1_p4, 0); 
@@ -212,7 +217,7 @@ class TTbarReconstructor {
 #endif
       
           // Convention: first top = positive charge
-          if(_leptons[ _diLeptons[ thisObj.diLepIdx ].lidxs.first ].charge  < 0)
+          if(_leptons[ _diLeptons[ _thisObj.diLepIdx ].lidxs.first ].charge  < 0)
             std::swap(gen_lepton1_p4, gen_lepton2_p4);
 
           if(switchBJets)
@@ -230,25 +235,25 @@ class TTbarReconstructor {
               NeutrinosSolver::LorentzVector(met_p4)
               );
 
-#ifdef RECO_DEBUG
-          std::cout << "Jet pair [" << idx << ": found " << neutrinos.size() << " solutions.\n";
-#endif
-
           if(!neutrinos.size())
             continue;
         
           // Solve according to decreasing TT invariant mass
           for(const auto& thisPair: neutrinos)
             this_ttbar.push_back( TTAnalysis::TTBar(1, myLorentzVector(gen_lepton1_p4+gen_bjet1_p4+myLorentzVector(thisPair.first)), myLorentzVector(gen_lepton2_p4+gen_bjet2_p4+myLorentzVector(thisPair.second))) );
-          std::sort(this_ttbar.begin(), this_ttbar.end(), [](const TTAnalysis:TTBar& a, const TTAnalysis::TTBar& b){ return a.p4.M() < b.p4.M(); } );
+          std::sort(this_ttbar.begin(), this_ttbar.end(), [](const TTAnalysis::TTBar& a, const TTAnalysis::TTBar& b){ return a.p4.M() < b.p4.M(); } );
 
           // Evaluate Mlb templates and compute weight
           const double thisWeight = MlbWeighting.Evaluate((gen_lepton1_p4+gen_bjet1_p4).M()) * MlbWeighting.Evaluate((gen_lepton2_p4+gen_bjet2_p4).M());
           
           // Add this solution to the weighted average
-          // This increments the nSols variable
           solution += thisWeight*TTbarSolution(this_ttbar.at(0));
           totWeight += thisWeight;
+          solution.nSols++;
+
+#ifdef RECO_DEBUG
+          std::cout << "  Smearing: found " << neutrinos.size() << " solutions, weight is " << thisWeight << "\n";
+#endif
         }
 
         // If no solution is found, return dummy object
@@ -258,42 +263,51 @@ class TTbarReconstructor {
         solution *= 1/totWeight;
         solution.weight = totWeight;
 
+#ifdef RECO_DEBUG
+        std::cout << "Jet pair [" << idx << "]: " << solution.nSols << " solutions, total weight = " << totWeight << "\n";
+#endif
+
         // Retrieve all the objects used for this particular solution
+        solution.chosenDiLepDiBJetsMet = i;
         solution.diLepDiJetMetIdx = idx;
         
-        solution.diLepIdx = thisObj.diLepIdx;
-        if(_leptons[ _diLeptons[ thisObj.diLepIdx ].lidxs.first ].charge  > 0) {
-          solution.leptonTIdx = _diLeptons[ thisObj.diLepIdx ].first;
-          solution.leptonTbarIdx = _diLeptons[ thisObj.diLepIdx ].second;
+        solution.diLepIdx = _thisObj.diLepIdx;
+        if(_leptons[ _diLeptons[ _thisObj.diLepIdx ].lidxs.first ].charge  > 0) {
+          solution.leptonTIdx = _diLeptons[ _thisObj.diLepIdx ].lidxs.first;
+          solution.leptonTbarIdx = _diLeptons[ _thisObj.diLepIdx ].lidxs.second;
         } else {
-          solution.leptonTIdx = _diLeptons[ thisObj.diLepIdx ].second;
-          solution.leptonTbarIdx = _diLeptons[ thisObj.diLepIdx ].first;
+          solution.leptonTIdx = _diLeptons[ _thisObj.diLepIdx ].lidxs.second;
+          solution.leptonTbarIdx = _diLeptons[ _thisObj.diLepIdx ].lidxs.first;
         }
         
-        solution.diJetIdx = thisObj.diJetIdx;
+        solution.diJetIdx = _thisObj.diJetIdx;
         if(!switchBJets) {
-          solution.jetTIdx = _diJets[ thisObj.diJetIdx ].first;
-          solution.jetTbarIdx = _diJets[ thisObj.diJetIdx ].second;
+          solution.jetTIdx = _diJets[ _thisObj.diJetIdx ].jidxs.first;
+          solution.jetTbarIdx = _diJets[ _thisObj.diJetIdx ].jidxs.second;
         } else {
-          solution.jetTIdx = _diJets[ thisObj.diJetIdx ].second;
-          solution.jetTbarIdx = _diJets[ thisObj.diJetIdx ].first;
+          solution.jetTIdx = _diJets[ _thisObj.diJetIdx ].jidxs.second;
+          solution.jetTbarIdx = _diJets[ _thisObj.diJetIdx ].jidxs.first;
         }
 
         // Return solution, without forgetting to build the top 4-vectors
         return solution.BuildTopLorentzVectors();
-      }
+      };
 
       std::vector<TTbarSolution> solCollection;
 
       // For all jet pairs, do the smearing
-      for(uint16_t idx: selObj_CSVv2Ordered) {
+      for(uint16_t i = 0; i < selObj_CSVv2Ordered.size(); i++) {
         // Two jet permutations
-        solCollection.append(doSmearing(idx, false));
-        solCollection.append(doSmearing(idx, true));
+        solCollection.push_back(doSmearing(i, false));
+        solCollection.push_back(doSmearing(i, true));
       }
       
       // Sort solutions according to decreasing total weight
       std::sort(solCollection.begin(), solCollection.end(), [](const TTbarSolution& s1, const TTbarSolution& s2){ return s1.weight > s2.weight; });
+
+#ifdef RECO_DEBUG
+      std::cout << "Solution with heighest total weight = " << solCollection[0].weight << " and index " << solCollection[0].diLepDiJetMetIdx << " wins!\n";
+#endif
 
       // Return solution with highest weight
       return solCollection[0];

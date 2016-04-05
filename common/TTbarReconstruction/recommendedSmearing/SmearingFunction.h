@@ -6,11 +6,16 @@
 #include <random>
 #include <functional>
 
+#include <Math/VectorUtil.h>
 #include <Math/Vector4D.h>
 #include <Math/Vector3Dfwd.h>
+#include <Math/AxisAngle.h>
 #include <TH2.h>
 #include <TH1.h>
 #include <TFile.h>
+
+#define DELTA_PRECISION_REL 10e-4
+#define DELTA_PRECISION_ABS 10e-6
 
 /* 
  * Virtual base class for all smearing functions.
@@ -29,9 +34,10 @@ class SmearingFunction {
     SmearingFunction(): myPSgen(0, 1) {}
     virtual ~SmearingFunction() {}
 
-    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) const { return 0;}
-    virtual double Evaluate(double& output, const bool unweighted) const { return 0; } // No default value here since it would be ambiguous with this second overload:
-    virtual double Evaluate(const double input) const { return 0; }
+    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) { return 0;}
+    virtual double Evaluate(double& output, const bool unweighted) { return 0; } // No default value here since it would be ambiguous with this second overload:
+    virtual double Evaluate(const double input) { return 0; }
+      
     double getRandom() { return myPSgen(engine); }
 
   private:
@@ -49,18 +55,18 @@ class DiracDelta: public SmearingFunction {
     DiracDelta(double value): value(value) {}
     virtual ~DiracDelta() {}
 
-    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) const {
+    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) {
       output = input;
       return 1;
     }
     
-    virtual double Evaluate(double& output, const bool unweighted) const {
+    virtual double Evaluate(double& output, const bool unweighted) {
       output = value;
       return 1;
     }
 
-    virtual double Evaluate(const double input) const {
-      return output == value;
+    virtual double Evaluate(const double input) {
+      return std::abs(input-value) <= std::max(std::abs(input), std::abs(value))*DELTA_PRECISION_REL && std::abs(input-value) <= DELTA_PRECISION_ABS;
     }
 
   private:
@@ -111,7 +117,7 @@ class BreitWigner: public SmearingFunction {
 
     virtual ~BreitWigner() {};
     
-    virtual double Evaluate(double &output, bool unweighted) const {
+    virtual double Evaluate(double &output, bool unweighted) {
 
       if(unweighted) {
         
@@ -132,7 +138,9 @@ class BreitWigner: public SmearingFunction {
     
     }
 
-    virtual double Evaluate(const double input) const {
+    virtual double Evaluate(const double input) {
+      if(input < 0)
+        return 0;
       return BW(input); 
     }
 
@@ -140,11 +148,11 @@ class BreitWigner: public SmearingFunction {
 
     const double mass, width, range, gamma, k;
     
-    double toRange(const double psPoint){
+    double toRange(const double psPoint) const {
       return -range*width + 2*range*width*psPoint;
     }
     
-    double BW(const double sqrts){
+    double BW(const double sqrts) const {
       return k/(pow(pow(sqrts, 2) - pow(mass, 2), 2) + pow(mass*width, 2));
     }
 };
@@ -154,7 +162,7 @@ class Binned1DTransferFunction: public SmearingFunction {
   public:
 
     Binned1DTransferFunction(const std::string histName, TFile* file, double offset=0): _offset(offset) {
-      _TF = dynamic_cast<TH1D*>( file->Get(histName.c_str()) );
+      _TF = dynamic_cast<TH1F*>( file->Get(histName.c_str()) );
       if(!_TF){
         std::cerr << "Error when defining 1D binned TF: unable to retrieve " << histName << " from file " << file->GetPath() << ".\n";
         exit(1);
@@ -174,8 +182,9 @@ class Binned1DTransferFunction: public SmearingFunction {
       delete _TF; _TF = nullptr;
     }
     
-    virtual double Evaluate(double &output, const bool unweighted) const {
-      
+    virtual double Evaluate(double &output, const bool unweighted) {
+      uint32_t bin;
+     
       if(unweighted) {
         
         const double max = _TF->GetMaximum();
@@ -183,17 +192,17 @@ class Binned1DTransferFunction: public SmearingFunction {
         do {
           
           output = _min + _range*getRandom();
-          const int bin = _TF->FindFixBin(output);
-          output += _offset;
+          bin = _TF->FindFixBin(output);
         
-        } while(_TF->GetBinContent(bin) > getRandom()*max);
+        } while(_TF->GetBinContent(bin) < getRandom()*max);
         
+        output += _offset;
         return 1;
       
       } else {
         
         output = _min + _range*getRandom();
-        const int bin = _TF->FindFixBin(output);
+        bin = _TF->FindFixBin(output);
         output += _offset;
         
         return _TF->GetBinContent(bin);
@@ -202,26 +211,28 @@ class Binned1DTransferFunction: public SmearingFunction {
     
     }
     
-    virtual double Evaluate(const double input) const {
-      const int bin = _TF->FindFixBin(input - _offset);
+    virtual double Evaluate(const double input) {
+      if(input < _min || input >= _max)
+        return 0;
+      const uint32_t bin = _TF->FindFixBin(input - _offset);
       return _TF->GetBinContent(bin);
     }
 
   private:
 
     double _min, _max, _range, _offset;
-    TH1D* _TF;
+    TH1F* _TF;
 };
 
 class Binned1DTransferFunctionOnEnergyRatio: public Binned1DTransferFunction {
   public:  
     
-    Binned1DTransferFunctionOnEnergyRatio(const std::string histName, TFile* file, double offset=0): 
-      _offset(offset), Binned1DTransferFunction(histName, file, offset) {}
+    Binned1DTransferFunctionOnEnergyRatio(const std::string histName, TFile* file): 
+      Binned1DTransferFunction(histName, file) {}
     
-    virtual ~Binned1DTransferFunctionOnEnergyRatio();
+    virtual ~Binned1DTransferFunctionOnEnergyRatio() {};
 
-    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) const {
+    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) {
       
       double chosenRatio;
       const double weight = Binned1DTransferFunction::Evaluate(chosenRatio, unweighted);
@@ -239,7 +250,7 @@ class Binned1DTransferFunctionOnEnergyRatio: public Binned1DTransferFunction {
 class Binned1DTransferFunctionOnAngle: public Binned1DTransferFunction {
   
   using XYZVector = ROOT::Math::XYZVector;
-  using RotateX = ROOT::Math::VectorUtil::RotateX;
+  using AxisAngle = ROOT::Math::AxisAngle;
 
   public:  
     
@@ -248,13 +259,13 @@ class Binned1DTransferFunctionOnAngle: public Binned1DTransferFunction {
     
     virtual ~Binned1DTransferFunctionOnAngle() {};
 
-    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) const {
+    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const bool unweighted = true) {
       // To get the axis describing the direction, first rotate the original vector by 90° (along any axis),
       // then rotate this by an random angle (uniformly distributed) around the origin vector.
       // Finally, get an angle distributed as the PDF, and rotate the 4-vector by this angle along the direction found above.
       
       XYZVector origDir(input.Vect());
-      XYZVector tempAxis = RotateX(origDir, M_PI/2);
+      XYZVector tempAxis = ROOT::Math::VectorUtil::RotateX(origDir, M_PI/2);
       AxisAngle rotAlongOrigDir(origDir, getRandom()*2*M_PI);
       XYZVector axis = rotAlongOrigDir(tempAxis);
       
@@ -296,7 +307,7 @@ class Binned2DTransferFunction: public SmearingFunction {
       delete _TF; _TF = nullptr;
     }
     
-    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const double psPoint) const {
+    virtual double Evaluate(const myLorentzVector& input, myLorentzVector& output, const double psPoint) {
       const double Erec = input.E();
       const double Erange = GetDeltaRange(Erec);
       double Egen = Erec - GetDeltaMax(Erec) + Erange * psPoint;

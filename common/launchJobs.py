@@ -73,15 +73,20 @@ if args.filter :
             for sampleName in jsonSample.keys():
                 if 'TT_TuneCUETP8M1_13TeV-powheg-pythia8' in sampleName : 
                     
-                    ## New division: dilep (excluding taus) and all the rest
+                    ## New division: dilep (excluding taus), dilep(with one or two taus) and all the rest
                     ttflname = sampleName + "_signal"
                     jsonSample[ttflname] = copy.deepcopy(jsonSample[sampleName])
                     jsonSample[ttflname]["sample_cut"] = "(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 )"
                     jsonSample[ttflname]["output_name"] += "_signal"
 
+                    ttflname = sampleName + "_tau"
+                    jsonSample[ttflname] = copy.deepcopy(jsonSample[sampleName])
+                    jsonSample[ttflname]["sample_cut"] = "tt_gen_ttbar_decay_type >= 8"
+                    jsonSample[ttflname]["output_name"] += "_tau"
+
                     ttflname = sampleName + "_other"
                     jsonSample[ttflname] = copy.deepcopy(jsonSample[sampleName])
-                    jsonSample[ttflname]["sample_cut"] = "!(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 )"
+                    jsonSample[ttflname]["sample_cut"] = "!(tt_gen_ttbar_decay_type >= 4 && tt_gen_ttbar_decay_type <= 6 ) && tt_gen_ttbar_decay_type < 8"
                     jsonSample[ttflname]["output_name"] += "_other"
 
                     ## Old division (dilep - semilep - hadr) with taus included in "lepton"

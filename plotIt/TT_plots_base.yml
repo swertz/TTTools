@@ -1215,6 +1215,15 @@
   save-extensions: ["png"]
   show-ratio: true
 
+'llbbMet_RecoTop_TT_DEta_CAT_base_ID??_Iso*':
+  x-axis: "|#Delta #eta_{t#bar{t}}|"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
 'llbbMet_RecoTop_TT_DR_CAT_base_ID??_Iso*':
   x-axis: "#Delta R_{t, #bar{t}}"
   y-axis: "Events"
@@ -1271,6 +1280,24 @@
 
 'llbbMet_RecoTop_AntiTop_Rapidity_CAT_base_ID??_Iso*':
   x-axis: "y_{#bar{t}}"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
+'llbbMet_RecoTop_nSols_CAT_base_ID??_Iso*':
+  x-axis: "Number of solutions"
+  y-axis: "Events"
+  y-axis-format: "%1% / %2$.1f"
+  normalized: false
+  log-y: both
+  save-extensions: ["png"]
+  show-ratio: true
+
+'llbbMet_RecoTop_totWeight_CAT_base_ID??_Iso*':
+  x-axis: "Solution weight"
   y-axis: "Events"
   y-axis-format: "%1% / %2$.1f"
   normalized: false
